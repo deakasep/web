@@ -1,7 +1,7 @@
 # AGENTS.md — claw-web
 
 > Entry point untuk **semua AI coding agent**: Claude Code, ChatGPT/OpenAI Codex, Copilot, Gemini, Cursor, dan lainnya.
-> Aturan induk lintas repo: [clau-core AGENTS.md](https://github.com/d34faiza-commits/clau-core/blob/main/AGENTS.md) dan AI-BOUNDARY. Status & handoff: [clau-content docs/status.md](https://github.com/d34faiza-commits/clau-content/blob/main/docs/status.md).
+> Aturan induk lintas repo: [clau-core AGENTS.md](https://github.com/deakasep/core/blob/main/AGENTS.md) dan AI-BOUNDARY. Status & handoff: [clau-content docs/status.md](https://github.com/deakasep/content/blob/main/docs/status.md).
 
 ## Repo ini
 
