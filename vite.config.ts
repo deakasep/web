@@ -10,6 +10,8 @@ export default defineConfig({
   base,
   define: { __CLAU_BASE__: JSON.stringify(base) },
   plugins: [react(), tailwindcss()],
+  // Pratinjau satu berkas (scripts/preview-single.mjs): semua halaman dalam satu bundle JS.
+  build: process.env.VITE_HASH_ROUTER === "1" ? { rollupOptions: { output: { inlineDynamicImports: true } } } : {},
   resolve: {
     alias: { "@": fileURLToPath(new URL("./src", import.meta.url)) },
   },

@@ -16,10 +16,10 @@ jobs:
           node-version: "22"
           cache: npm
       - run: npm ci --ignore-scripts
-      - run: npx tsc -b && VITE_BASE=./ VITE_HASH_ROUTER=1 npx vite build
       - run: npm run build
       - run: |
           VITE_BASE=./ VITE_HASH_ROUTER=1 npx vite build --outDir preview
+          node scripts/preview-single.mjs preview
           cd preview
           git init -q && git checkout -q -b preview/dist
           git -c user.name=ci -c user.email=ci@local add . && git -c user.name=ci -c user.email=ci@local commit -qm "dist ${GITHUB_SHA}"
