@@ -12,8 +12,8 @@ function SceneLayer({ name, style, eager, children }: { name: string; style?: La
     // Sedikit diperbesar supaya tepi tidak terlihat saat lapisan bergeser.
     <motion.div className="absolute inset-0 scale-[1.06]" style={style}>
       <img
-        src={`/scenes/${name}-1920.webp`}
-        srcSet={`/scenes/${name}-1920.webp 1920w, /scenes/${name}-3840.webp 3840w`}
+        src={`${import.meta.env.BASE_URL}scenes/${name}-1920.webp`}
+        srcSet={`${import.meta.env.BASE_URL}scenes/${name}-1920.webp 1920w, ${import.meta.env.BASE_URL}scenes/${name}-3840.webp 3840w`}
         sizes="100vw"
         alt=""
         aria-hidden

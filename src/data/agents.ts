@@ -36,10 +36,14 @@ export const agents: Agent[] = [
   { id: "sop-writer", name: "Teguh", role: "AI Integration & Developer", blurb: "SOP, integrasi Google Sheets & toko online, dan landing page sederhana.", pillar: "AI Admin", active: false, scene: { setting: "Ruang operasional" }, ratio: 0.5111, eyes: [{ x: 33.05, y: 32.42, w: 10.33, h: 5.28, skin: "#fddaa8" }, { x: 66.63, y: 32.84, w: 9.86, h: 5.04, skin: "#fbdaa8" }] },
 ];
 
-export const avatar = (id: string) => `/agents/${id}.webp`;
+// Base URL situs ("/" di produksi, "./" untuk pratinjau; vite.config.ts → define). File ini juga dibaca Node
+// (scripts/prerender-routes.mjs) di mana __CLAU_BASE__ tidak ada, jadi jatuh ke "/".
+declare const __CLAU_BASE__: string | undefined;
+const BASE: string = typeof __CLAU_BASE__ === "string" ? __CLAU_BASE__ : "/";
+export const avatar = (id: string) => `${BASE}agents/${id}.webp`;
 // Figur full-body tanpa latar (dipotong dari master clau-agent/agents/avatars).
-export const figure = (id: string) => `/agents/full/${id}.webp`;
-export const sceneImage = (id: string) => `/agents/scene/${id}.webp`;
+export const figure = (id: string) => `${BASE}agents/full/${id}.webp`;
+export const sceneImage = (id: string) => `${BASE}agents/scene/${id}.webp`;
 
 /** Halaman detail agen: /agen/<slug> (slug = nama kecil, mis. /agen/tara). */
 export const agentUrl = (a: Agent) => `/agen/${a.name.toLowerCase()}`;
