@@ -7,7 +7,7 @@ export function Footer() {
       <div className="mx-auto flex max-w-6xl flex-col gap-8 md:flex-row md:items-start md:justify-between">
         <div className="max-w-sm">
           <Logo />
-          <p className="mt-4 text-sm text-slate-400">Agensi + platform AI marketing untuk hospitality Indonesia. AI menyiapkan, manusia memutuskan.</p>
+          <p className="mt-4 text-sm text-slate-400">Platform karyawan AI berlangganan untuk UMKM &amp; hospitality Indonesia. AI menyiapkan, Anda memutuskan.</p>
         </div>
         <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
           {nav.map((n) => (

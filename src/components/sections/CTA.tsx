@@ -47,17 +47,17 @@ export function CTA() {
         </div>
 
         <h2 className="relative mx-auto mt-8 max-w-3xl font-display text-4xl leading-[1.05] font-extrabold tracking-tight text-white sm:text-6xl">
-          Konten jujur, <span className="text-gradient">tamu datang.</span>
+          Rekrut tim AI Anda <span className="text-gradient">hari ini.</span>
         </h2>
         <p className="relative mx-auto mt-5 max-w-xl text-base text-slate-300 sm:text-lg">
-          Ceritakan properti Anda dalam discovery call 30 menit. Kami tunjukkan contoh alur fact sheet → draft → approval dengan data simulasi.
+          Mulai Rp149.000/bulan dengan 500 kredit, hemat hingga 22% untuk paket tahunan. Butuh bantuan memilih? Ngobrol dulu dengan tim kami.
         </p>
         <div className="relative mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <Button href={CONTACT_URL}>
-            Jadwalkan discovery call <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+          <Button href="#paket">
+            Pilih paket <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
           </Button>
-          <Button href="#paket" variant="ghost">
-            Bandingkan paket
+          <Button href={CONTACT_URL} variant="ghost">
+            Tanya tim CLAU
           </Button>
         </div>
       </Reveal>

@@ -1,6 +1,6 @@
 # claw-web
 
-Landing page **CLAU AI**: agensi + platform AI marketing untuk hospitality Indonesia (villa, resto, wedding, travel).
+Landing page **CLAU AI**: platform karyawan AI berlangganan untuk UMKM & hospitality Indonesia (model langganan + kredit, clau-core AI-CONSTITUTION v4.0.0).
 
 ## Stack
 
@@ -16,7 +16,7 @@ npm run build     # typecheck + build ke dist/
 
 | Path | Isi |
 |---|---|
-| `src/App.tsx` | Urutan section: Hero (lounge villa + Tara) → Trusted By → Showcase (close-up wajah agent) → The Agents (carousel) → Desk Scene (agent di meja resepsionis) → Keamanan Konten (Bento) → How it Works (+ diagram alur) → Pricing → CTA |
+| `src/App.tsx` | Urutan section: Hero (lounge villa + Tara) → Trusted By → Showcase (close-up wajah agent) → The Agents (carousel) → Desk Scene (agent di meja resepsionis) → Keamanan Konten (Bento) → How it Works (+ diagram alur) → Pricing (paket + top up + tarif kredit) → FAQ → CTA |
 | `src/components/sections/` | Satu file per section |
 | `src/components/ui/orbiting-circles.tsx` | Dari 21st.dev `ruixen.ui/hero-section06`, diadaptasi tanpa Next.js |
 | `src/components/ui/bento-grid.tsx` | Dari 21st.dev `kokonutd/bento-grid`, ditambah slot visual + hover Motion |
@@ -27,6 +27,7 @@ npm run build     # typecheck + build ke dist/
 | `public/scenes/` · `scripts/scenes/` | Latar ilustrasi 4K berlapis (WebP 1920 & 3840) untuk hero & meja; dibuat ulang dengan `python3 scripts/scenes/build.py` (butuh Pillow + Playwright/Chromium) |
 | `src/data/agents.ts` | 12 agent, mengikuti `clau-agent/agents/registry.json`, + suasana ruangan (`scene`) per kartu |
 | `src/data/site.ts` | Navigasi + `CONTACT_URL` |
+| `src/data/pricing.ts` | Paket 1/3/6/12 bulan, top up, tarif kredit, FAQ (section `Pricing` + `FAQ`) |
 | `public/agents/` | Avatar 3D kepala 256×256 (orbit hero, CTA), salinan dari `clau-agent/frontend/public/agents/` |
 | `public/agents/full/` | Figur 3D full-body tanpa latar (carousel agent), dipotong dari master `clau-agent/agents/avatars/` dengan `rembg` (isnet-general-use), tinggi 900 px |
 
@@ -36,7 +37,7 @@ Baca [AGENTS.md](./AGENTS.md): selalu backup ke repo, branch AI → PR → CI hi
 
 ## Aturan isi
 
-- Isi paket dari `clau-market/commercial/service-catalog.md`. **Harga tidak ditampilkan** (dikirim lewat proposal).
+- Harga paket, top up, dan tarif kredit **ditampilkan** dari `src/data/pricing.ts`, yang wajib sama dengan `clau-market/commercial/pricing.md`. Layanan terkelola tetap lewat proposal.
 - Level approval & penanda risiko mengikuti `clau-market/rules/08`.
 - Tanpa logo/testimoni klien sampai ada klien nyata yang mengizinkan; contoh data berlabel SIMULASI.
 - Avatar = karakter AI fiktif; agent selalu ditampilkan sebagai AI.

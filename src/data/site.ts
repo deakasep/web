@@ -5,5 +5,6 @@ export const nav = [
   { label: "Agent", href: "#agent" },
   { label: "Keamanan Konten", href: "#keamanan" },
   { label: "Cara Kerja", href: "#cara-kerja" },
-  { label: "Paket", href: "#paket" },
+  { label: "Harga", href: "#paket" },
+  { label: "FAQ", href: "#faq" },
 ];
