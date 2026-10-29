@@ -18,8 +18,14 @@ jobs:
       - run: npm ci --ignore-scripts
       - run: npm run build
       - run: |
+          npx --yes playwright@1.49.1 install --with-deps chromium
+          npm i --no-save --ignore-scripts playwright@1.49.1
+          (npx vite preview --port 4173 --strictPort &) ; sleep 3
+          node scripts/shots.mjs shots | tee shots.log
+      - run: |
           VITE_BASE=./ VITE_HASH_ROUTER=1 npx vite build --outDir preview
           node scripts/preview-single.mjs preview
+          cp -r shots shots.log preview/
           cd preview
           git init -q && git checkout -q -b preview/dist
           git -c user.name=ci -c user.email=ci@local add . && git -c user.name=ci -c user.email=ci@local commit -qm "dist ${GITHUB_SHA}"
