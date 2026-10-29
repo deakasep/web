@@ -244,6 +244,57 @@ const scenes: Record<string, () => ReactNode> = {
       <Planks color="#151842" n={7} />
     </Room>
   ),
+  // Nova: studio desain dengan kanvas, palet warna, dan lampu sorot.
+  "image-creator": () => (
+    <Room id="nova" wall={["#FBD3E9", "#E7A6D3"]} floor={["#8A5A7A", "#5A3550"]}>
+      <rect x="20" y="70" width="96" height="120" rx="4" fill="#FFFFFF" />
+      <circle cx="52" cy="112" r="18" fill="#F4A261" />
+      <path d="M28 180 L64 132 L88 160 L108 140 L108 180 Z" fill="#2A9D8F" />
+      {["#E76F51", "#2A9D8F", "#E9C46A", "#457B9D", "#C77DFF"].map((c, i) => (
+        <rect key={c} x={196 + (i % 3) * 30} y={84 + Math.floor(i / 3) * 34} width="24" height="24" rx="4" fill={c} />
+      ))}
+      <Pendant x={150} len={50} color="#FFF3C4" shade="#B5838D" />
+      <Plant x={260} y={300} s={0.9} leaf="#3D7A4B" pot="#FFFFFF" />
+      <Planks color="#3A1F33" n={7} />
+    </Room>
+  ),
+  // Aruna: studio video dengan layar hijau, lampu, dan papan klapper.
+  "video-creator": () => (
+    <Room id="aruna" wall={["#C7D2FE", "#8B9CF0"]} floor={["#3F4A8A", "#252C5C"]}>
+      <rect x="80" y="40" width="140" height="190" rx="4" fill="#4ADE80" opacity="0.85" />
+      <rect x="80" y="40" width="140" height="8" fill="#166534" opacity="0.5" />
+      {[30, 270].map((x) => (
+        <g key={x}>
+          <rect x={x - 3} y="120" width="6" height="140" fill="#1F2937" />
+          <rect x={x - 18} y="96" width="36" height="28" rx="4" fill="#111827" />
+          <rect x={x - 14} y="100" width="28" height="20" rx="3" fill="#FEF3C7" />
+        </g>
+      ))}
+      <rect x="236" y="200" width="44" height="30" rx="3" fill="#111827" />
+      {[0, 1, 2, 3].map((i) => (
+        <rect key={i} x={238 + i * 11} y="194" width="6" height="8" fill="#F9FAFB" transform={`skewX(-20)`} />
+      ))}
+      <Planks color="#151842" n={7} />
+    </Room>
+  ),
+  // Dara: ruang data dengan papan sticky note berlabel warna dan layar tabel.
+  "data-analyst": () => (
+    <Room id="dara" wall={["#DDD6FE", "#A78BFA"]} floor={["#5B4A8A", "#362A5C"]}>
+      <rect x="18" y="64" width="120" height="130" rx="6" fill="#F5F0FF" />
+      {Array.from({ length: 9 }, (_, i) => (
+        <rect key={i} x={28 + (i % 3) * 36} y={76 + Math.floor(i / 3) * 38} width="28" height="28" rx="3" fill={["#FDE68A", "#A7F3D0", "#FCA5A5"][(i + Math.floor(i / 3)) % 3]} />
+      ))}
+      <rect x="176" y="80" width="106" height="80" rx="6" fill="#1E1B4B" />
+      {[0, 1, 2, 3].map((r) => (
+        <g key={r}>
+          <rect x="186" y={92 + r * 16} width="40" height="8" rx="2" fill="#A5B4FC" opacity="0.8" />
+          <rect x="232" y={92 + r * 16} width={18 + ((r * 9) % 24)} height="8" rx="2" fill="#5EEAD4" />
+        </g>
+      ))}
+      <rect x="160" y="250" width="140" height="10" fill="#4C3A78" />
+      <Planks color="#221A40" n={7} />
+    </Room>
+  ),
   // Intan: ruang analitik dengan layar grafik di dinding.
   "report-builder": () => (
     <Room id="intan" wall={["#155E58", "#0B3B37"]} floor={["#0E3F3A", "#062522"]}>

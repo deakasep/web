@@ -159,7 +159,7 @@ export function Agents() {
       </Reveal>
 
       <p className="mx-auto mt-6 max-w-6xl px-4 text-center text-xs text-slate-500">
-        Geser untuk melihat semua 12 agent. Avatar adalah karakter AI fiktif, bukan foto staf. Agent selalu ditampilkan sebagai AI, bukan manusia.
+        Geser untuk melihat semua {agents.length} agent. Avatar adalah karakter AI fiktif, bukan foto staf. Agent selalu ditampilkan sebagai AI, bukan manusia.
       </p>
     </section>
   );
