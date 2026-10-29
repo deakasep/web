@@ -2,6 +2,7 @@ import { MotionConfig } from "motion/react";
 import { Agents } from "@/components/sections/Agents";
 import { CTA } from "@/components/sections/CTA";
 import { DeskScene } from "@/components/sections/DeskScene";
+import { FAQ } from "@/components/sections/FAQ";
 import { Features } from "@/components/sections/Features";
 import { Footer } from "@/components/sections/Footer";
 import { Hero } from "@/components/sections/Hero";
@@ -24,6 +25,7 @@ export default function App() {
         <Features />
         <HowItWorks />
         <Pricing />
+        <FAQ />
         <CTA />
       </main>
       <Footer />

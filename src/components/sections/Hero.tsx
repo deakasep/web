@@ -5,7 +5,6 @@ import { AgentFigure } from "@/components/ui/agent-figure";
 import { Button } from "@/components/ui/button";
 import { VillaLounge } from "@/components/ui/wide-scenes";
 import { agents } from "@/data/agents";
-import { CONTACT_URL } from "@/data/site";
 
 const tara = agents.find((a) => a.id === "caption-writer")!;
 
@@ -54,19 +53,19 @@ export function Hero() {
         <div className="max-w-2xl">
           <motion.a {...fade(0.1)} href="#keamanan" className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-black/30 px-3 py-1.5 text-xs text-slate-200 backdrop-blur-md transition-colors hover:bg-black/50 sm:text-sm">
             <span className="flex h-5 items-center rounded-full bg-gradient-to-r from-teal-400 to-emerald-500 px-2 text-[10px] font-bold tracking-wide text-slate-950">BARU</span>
-            AI menyiapkan, manusia memutuskan
+            Langganan mulai Rp149rb/bulan
             <ArrowRight className="size-3.5" />
           </motion.a>
           <motion.h1 {...fade(0.2)} className="mt-6 font-display text-[2.5rem] leading-[1.02] font-extrabold tracking-[-0.03em] text-white sm:text-6xl lg:text-[4.6rem]">
-            Tim agent AI untuk <span className="text-gradient">hospitality Indonesia</span>
+            Karyawan AI untuk <span className="text-gradient">UMKM &amp; hospitality</span>
           </motion.h1>
           <motion.p {...fade(0.3)} className="mt-6 max-w-xl text-base leading-relaxed text-slate-300 sm:text-lg">
-            Tim 12 agent AI menyusun konten villa, resto, wedding, dan travel Anda setiap hari. Setiap fakta dicek ke fact sheet, setiap draft lewat QA manusia,{" "}
-            <span className="text-white">dan tidak ada yang tayang tanpa persetujuan Anda.</span>
+            Tim agent AI menyusun konten sosmed, kalender, naskah video, balasan review, dan laporan untuk toko, kafe, villa, atau usaha Anda. Bayar per paket, pakai kredit per pekerjaan,{" "}
+            <span className="text-white">dan tidak ada yang terposting sebelum Anda klik Setujui.</span>
           </motion.p>
           <motion.div {...fade(0.4)} className="mt-9 flex flex-col gap-3 sm:flex-row">
-            <Button href={CONTACT_URL}>
-              Jadwalkan discovery call
+            <Button href="#paket">
+              Lihat paket & harga
               <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
             </Button>
             <Button href="#agent" variant="ghost">
@@ -74,7 +73,7 @@ export function Hero() {
             </Button>
           </motion.div>
           <motion.ul {...fade(0.5)} className="mt-7 hidden flex-wrap gap-x-6 gap-y-2 text-sm text-slate-300 sm:flex">
-            {["Fakta dikonfirmasi klien", "QA manusia berlapis", "Tanpa auto-publish"].map((t) => (
+            {["Kredit tampil sebelum kerja", "Top up kapan saja", "Approve sebelum posting"].map((t) => (
               <li key={t} className="flex items-center gap-1.5">
                 <Check className="size-4 text-teal-300" /> {t}
               </li>
@@ -96,8 +95,8 @@ export function Hero() {
       </motion.div>
 
       {/* Kartu status di dekat Tara (desktop) */}
-      <FloatChip className="top-[30%] right-[3%] lg:right-[5%]" delay={1.2} icon={<ShieldCheck className="size-4 text-emerald-300" />} title="Fakta terkonfirmasi" sub="Harga kamar · CLIENT CONFIRMATION" />
-      <FloatChip className="bottom-[12%] right-[2%] lg:right-[4%]" delay={1.5} icon={<Lock className="size-4 text-teal-300" />} title="Auto-publish: tidak ada" sub="Anda yang menekan tombol" />
+      <FloatChip className="top-[30%] right-[3%] lg:right-[5%]" delay={1.2} icon={<ShieldCheck className="size-4 text-emerald-300" />} title="8 kredit · caption + cek fakta" sub="Saldo tampil sebelum agent bekerja" />
+      <FloatChip className="bottom-[12%] right-[2%] lg:right-[4%]" delay={1.5} icon={<Lock className="size-4 text-teal-300" />} title="Terposting setelah Setujui" sub="Anda yang menekan tombol" />
     </section>
   );
 }

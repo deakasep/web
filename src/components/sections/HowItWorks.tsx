@@ -1,14 +1,15 @@
-import { ClipboardCheck, PenLine, ScanSearch, UserCheck, Send } from "lucide-react";
+import { ClipboardCheck, PenLine, ScanSearch, UserCheck, Send, Wallet } from "lucide-react";
 import { motion, useScroll, useSpring } from "motion/react";
 import { useRef } from "react";
 import { Reveal, SectionHeading } from "@/components/ui/reveal";
 
 const steps = [
-  { icon: ClipboardCheck, title: "Discovery & Fact Sheet", who: "Anda + tim CLAU", body: "Kami kenali properti, tamu, dan voice brand Anda. Anda mengonfirmasi fact sheet: harga, fasilitas, kebijakan." },
-  { icon: PenLine, title: "Agent AI menyusun draft", who: "Tara, Raka, Dimas, dkk.", body: "Kalender bulanan, caption, naskah Reels, Stories, listing OTA, dan balasan review disusun sesuai kalender Indonesia." },
+  { icon: Wallet, title: "Pilih paket & bayar", who: "Anda, 5 menit", body: "Paket 1, 3, 6, atau 12 bulan lewat QRIS, virtual account, atau e-wallet. Akun aktif begitu pembayaran terkonfirmasi, berikut 500 kredit bulan ini." },
+  { icon: ClipboardCheck, title: "Isi Brain bisnis", who: "Anda", body: "Produk, harga, gaya bahasa, dan aturan merek dalam satu fact sheet yang Anda konfirmasi. Hubungkan akun sosmed lewat login resmi, tanpa berbagi password." },
+  { icon: PenLine, title: "Agent AI menyusun draft", who: "Tara, Raka, Dimas, dkk.", body: "Minta lewat dashboard: kalender, caption, naskah Reels, Stories, listing, balasan review. Setiap pekerjaan memotong kredit sesuai tarif yang tampil di awal." },
   { icon: ScanSearch, title: "Fact-check & penanda risiko", who: "AI + aturan konten 01–09", body: "Setiap kalimat dicek ke fact sheet. Harga, orang, agama/budaya, atau review negatif otomatis menaikkan level approval." },
-  { icon: UserCheck, title: "QA manusia & approval", who: "Content lead, reviewer, Anda", body: "Draft lewat QA tim CLAU dan reviewer independen, lalu ke approver Anda sesuai level L1, L2, atau L3." },
-  { icon: Send, title: "Dijadwalkan oleh manusia", who: "Anda atau tim CLAU", body: "Hanya konten yang sudah disetujui yang dijadwalkan, lewat akses partner tanpa berbagi password. Tidak ada auto-publish." },
+  { icon: UserCheck, title: "Anda menyetujui", who: "Anda atau approver yang Anda tunjuk", body: "Baca draft, revisi, atau tolak. Konten berisiko (harga, promo, orang, review negatif) ditandai supaya dicek lebih teliti." },
+  { icon: Send, title: "Terposting sesuai jadwal", who: "Platform CLAU", body: "Hanya versi yang Anda setujui yang diposting, lewat API resmi kanal. Kredit habis? Agent berhenti, draft tetap aman, top up dari dashboard." },
 ];
 
 export function HowItWorks() {
@@ -23,10 +24,10 @@ export function HowItWorks() {
           eyebrow="How it Works"
           title={
             <>
-              Dari brief sampai tayang, <span className="text-gradient">manusia selalu di dalam loop</span>
+              Dari daftar sampai terposting, <span className="text-gradient">Anda selalu memegang kendali</span>
             </>
           }
-          subtitle="Lima langkah yang sama untuk setiap konten, setiap klien. Tercatat di platform, jadi selalu jelas siapa memeriksa apa."
+          subtitle="Enam langkah yang sama untuk setiap klien. Semua tercatat di dashboard: siapa menyetujui apa, dan berapa kredit yang terpakai."
         />
 
         <FlowDiagram />
@@ -72,11 +73,11 @@ export function HowItWorks() {
 
 // Mekanisme alur konten: jalur draft → tayang lewat manusia, loop revisi, dan jalur auto-publish yang tidak ada.
 const nodes = [
-  { x: 10, label: "Fact sheet", sub: "dikonfirmasi klien" },
+  { x: 10, label: "Brain bisnis", sub: "dikonfirmasi Anda" },
   { x: 205, label: "Agent AI", sub: "menyusun draft" },
   { x: 400, label: "Fact-check AI", sub: "+ penanda risiko" },
-  { x: 595, label: "QA & approval", sub: "manusia L1–L3", human: true },
-  { x: 790, label: "Dijadwalkan", sub: "oleh manusia", human: true },
+  { x: 595, label: "Anda setujui", sub: "klik di dashboard", human: true },
+  { x: 790, label: "Dijadwalkan", sub: "versi yang disetujui" },
 ];
 const BW = 140;
 const BH = 58;
@@ -89,7 +90,7 @@ function FlowDiagram() {
         <svg
           viewBox="0 0 940 300"
           role="img"
-          aria-label="Alur konten CLAU: fact sheet ke agent AI, fact-check, QA dan approval manusia, lalu dijadwalkan manusia ke kanal. Jalur langsung dari agent AI ke kanal (auto-publish) tidak ada."
+          aria-label="Alur konten CLAU: Brain bisnis ke agent AI, fact-check, persetujuan Anda di dashboard, lalu dijadwalkan dan diposting lewat API resmi kanal. Jalur langsung dari agent AI ke kanal tanpa persetujuan tidak ada."
           className="mx-auto h-auto w-full min-w-[640px] text-slate-300"
         >
           <defs>
@@ -134,9 +135,9 @@ function FlowDiagram() {
           {/* Kanal tayang */}
           <rect x="790" y="220" width={BW} height={BH} rx="12" fill="currentColor" fillOpacity="0.06" stroke="currentColor" strokeOpacity="0.35" />
           <text x="860" y="245" textAnchor="middle" fontSize="13" fontWeight="700" fill="currentColor">Kanal tayang</text>
-          <text x="860" y="263" textAnchor="middle" fontSize="11" fill="currentColor" fillOpacity="0.7">IG · GBP · OTA</text>
+          <text x="860" y="263" textAnchor="middle" fontSize="11" fill="currentColor" fillOpacity="0.7">IG · FB · TikTok</text>
           <line x1="860" y1={Y + BH + 2} x2="860" y2="216" stroke="#5eead4" strokeWidth="1.8" markerEnd="url(#fd-arrow-teal)" />
-          <text x="868" y="180" fontSize="11" fill="currentColor" fillOpacity="0.8">akses partner</text>
+          <text x="868" y="180" fontSize="11" fill="currentColor" fillOpacity="0.8">API resmi</text>
 
           {/* Jalur yang tidak ada: agent AI langsung ke kanal */}
           <path d={`M275 ${Y + BH + 2} V249 H784`} fill="none" stroke="#fb7185" strokeWidth="1.8" strokeDasharray="6 6" />
@@ -144,10 +145,10 @@ function FlowDiagram() {
             <circle r="13" fill="#05080d" stroke="#fb7185" strokeWidth="1.8" />
             <path d="M-5 -5 L5 5 M5 -5 L-5 5" stroke="#fb7185" strokeWidth="2.2" strokeLinecap="round" />
           </g>
-          <text x="530" y="285" textAnchor="middle" fontSize="12" fontWeight="600" fill="#fda4af">auto-publish: tidak ada</text>
+          <text x="530" y="285" textAnchor="middle" fontSize="12" fontWeight="600" fill="#fda4af">tanpa persetujuan: tidak ada</text>
         </svg>
         <figcaption className="mt-4 text-center text-sm text-slate-400">
-          Setiap konten lewat jalur yang sama sampai disetujui manusia. Agent AI tidak punya jalur langsung ke kanal tayang.
+          Setiap konten lewat jalur yang sama sampai Anda setujui. Agent AI tidak punya jalur langsung ke kanal tayang.
         </figcaption>
       </figure>
     </Reveal>

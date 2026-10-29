@@ -64,9 +64,9 @@ function NoPublishVisual() {
 
 function ApprovalVisual() {
   const steps = [
-    { l: "L1", who: "Konten rutin", what: "Content lead CLAU + approver Anda" },
-    { l: "L2", who: "Harga, promo, orang, listing", what: "Review independen + approval per konten" },
-    { l: "L3", who: "Iklan, review negatif, agama/budaya", what: "Langsung ke owner / GM Anda" },
+    { l: "L1", who: "Konten rutin", what: "Sekali klik Setujui" },
+    { l: "L2", who: "Harga, promo, orang, listing", what: "Ditandai; wajib dibaca per konten" },
+    { l: "L3", who: "Iklan, review negatif, agama/budaya", what: "Tidak dibalas otomatis; ke pemilik" },
   ];
   return (
     <div className="grid gap-3 sm:grid-cols-3">
@@ -100,20 +100,20 @@ const items: BentoItem[] = [
   },
   {
     title: "Tidak ada auto-publish",
-    description: "AI tidak bisa memposting. Konten tayang hanya setelah approval, oleh Anda atau tim CLAU.",
+    description: "AI tidak bisa memposting sendiri. Konten tayang hanya setelah Anda klik Setujui untuk versi itu.",
     icon: <Lock className="size-5" />,
     status: "Aman untuk brand",
     visual: <NoPublishVisual />,
   },
   {
-    title: "QA manusia & approval berlapis",
-    description: "Human-in-the-loop sungguhan: AI tidak pernah menyetujui hasil kerjanya sendiri.",
+    title: "Approval di tangan Anda",
+    description: "Konten rutin cukup sekali klik; konten berisiko ditandai dan wajib dibaca dulu. AI tidak pernah menyetujui hasil kerjanya sendiri.",
     icon: <Users className="size-5" />,
     colSpan: 2,
     visual: <ApprovalVisual />,
   },
   {
-    title: "Privasi tamu & UU PDP",
+    title: "Privasi pelanggan & UU PDP",
     description: "Data disamarkan sebelum dikirim ke model AI. Data tiap klien terisolasi. Foto orang wajib ada consent.",
     icon: <ShieldCheck className="size-5" />,
     tags: ["UU PDP", "Consent"],
@@ -125,19 +125,19 @@ const items: BentoItem[] = [
     tags: ["Lokal", "Bilingual"],
   },
   {
-    title: "Koreksi cepat",
-    description: "Ada konten salah tayang? Draft koreksi atau takedown ≤ 4 jam kerja setelah dilaporkan.",
+    title: "Kredit transparan",
+    description: "Tarif tampil sebelum agent bekerja. Kredit habis = agent berhenti, tanpa tagihan kejutan; gagal teknis = kredit kembali.",
     icon: <Timer className="size-5" />,
-    meta: "SLA",
-    tags: ["Tanggung jawab"],
+    meta: "Kredit",
+    tags: ["Bayar di muka", "Top up"],
   },
 ];
 
 const compare = [
   ["AI langsung memposting puluhan konten", "AI menyiapkan draft, manusia memutuskan"],
   ["Klaim harga & fasilitas tanpa dicek", "Setiap klaim dicek ke fact sheet terkonfirmasi"],
-  ["Anda sendiri yang harus QA", "QA tim CLAU + reviewer independen"],
-  ["Template generik global", "Spesialis villa, resto, wedding, travel Indonesia"],
+  ["Tagihan API tak terduga", "Kredit dibayar di muka, tampil sebelum dipakai"],
+  ["Template generik global", "Kalender & bahasa Indonesia, untuk UMKM & hospitality"],
 ];
 
 export function Features() {
@@ -150,10 +150,10 @@ export function Features() {
           title={
             <>
               Bukan SaaS AI murah. <br className="hidden sm:block" />
-              <span className="text-gradient">Agensi yang bisa dipertanggungjawabkan.</span>
+              <span className="text-gradient">Karyawan AI yang bisa dipertanggungjawabkan.</span>
             </>
           }
-          subtitle="Satu caption dengan harga yang salah atau klaim halal yang keliru bisa merusak reputasi properti Anda. Karena itu CLAU dibangun dengan pagar pengaman di setiap langkah."
+          subtitle="Satu caption dengan harga yang salah atau klaim halal yang keliru bisa merusak reputasi usaha Anda. Karena itu CLAU dibangun dengan pagar pengaman di setiap langkah."
         />
         <div className="mt-16">
           <BentoGrid items={items} />

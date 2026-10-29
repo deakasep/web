@@ -92,6 +92,8 @@ function AgentCard({ a, i }: { a: Agent; i: number }) {
   );
 }
 
+const upcoming = ["AI Image Creator", "AI Video Creator", "AI Data Analyst & Annotator", "AI Integration Specialist", "AI Developer"];
+
 export function Agents() {
   const track = useRef<HTMLDivElement>(null);
   const scrollBy = (dir: 1 | -1) => {
@@ -111,7 +113,7 @@ export function Agents() {
               Kenalkan tim AI Anda, <span className="text-gradient">masing-masing spesialis</span>
             </>
           }
-          subtitle="Setiap agent punya satu keahlian, persona, dan batas yang jelas. Mereka menyiapkan draft. Keputusan tetap di tangan tim CLAU dan Anda."
+          subtitle="Setiap agent punya satu keahlian, persona, dan batas yang jelas. Mereka menyiapkan draft. Keputusan tetap di tangan Anda."
         />
       </div>
 
@@ -139,6 +141,20 @@ export function Agents() {
               {dir < 0 ? <ArrowLeft className="size-6" /> : <ArrowRight className="size-6" />}
             </motion.button>
           ))}
+        </div>
+      </Reveal>
+
+      <Reveal className="mx-auto mt-12 max-w-6xl px-4">
+        <div className="flex flex-col gap-4 rounded-3xl p-6 glass sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <p className="font-display font-bold text-white">Segera bergabung</p>
+            <p className="mt-1 text-sm text-slate-400">Agent baru otomatis masuk ke paket Anda tanpa biaya tambahan; pemakaiannya memakai kredit.</p>
+          </div>
+          <ul className="flex flex-wrap gap-2">
+            {upcoming.map((u) => (
+              <li key={u} className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-semibold text-slate-200">{u}</li>
+            ))}
+          </ul>
         </div>
       </Reveal>
 
