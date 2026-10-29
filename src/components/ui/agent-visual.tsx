@@ -3,7 +3,7 @@ import { useRef } from "react";
 import { AgentFigure } from "@/components/ui/agent-figure";
 import { HospitalityScene } from "@/components/ui/hospitality-scenes";
 import { sceneImage, type Agent } from "@/data/agents";
-import { useAmbientPointer, useTouchDevice } from "@/lib/ambient";
+import { useAmbientPointer, useTouchLit } from "@/lib/ambient";
 import { cn } from "@/lib/utils";
 
 // Figur menoleh mengikuti kursor di dalam kartu; di layar sentuh menoleh sendiri (giroskop / gerak pelan).
@@ -44,13 +44,15 @@ function CardFigure({ a, i, height }: { a: Agent; i: number; height: string }) {
 /** Ruangan agen + figur + label suasana & status. Induk menentukan ukuran (mis. aspect-[3/4]). */
 export function AgentVisual({ a, i, figureHeight = "80%", className }: { a: Agent; i: number; figureHeight?: string; className?: string }) {
   // Layar sentuh: efek hover laptop (figur naik, ruangan zoom, cahaya) jalan saat kartu masuk ke tengah layar.
-  const touch = useTouchDevice();
+  const [ref, lit, touch] = useTouchLit<HTMLDivElement>(0.65);
   return (
     <motion.div
+      ref={ref}
+      data-lit={lit}
       whileInView={touch ? "hover" : undefined}
       viewport={{ amount: 0.65 }}
       className={cn(
-        "relative overflow-hidden rounded-[28px] shadow-[0_30px_80px_-30px_rgba(0,0,0,0.9)] ring-1 ring-white/10 transition-shadow duration-500 group-hover:shadow-[0_40px_90px_-30px_rgba(45,212,191,0.45)]",
+        "relative overflow-hidden rounded-[28px] shadow-[0_30px_80px_-30px_rgba(0,0,0,0.9)] ring-1 ring-white/10 transition-shadow duration-500 group-hover:shadow-[0_40px_90px_-30px_rgba(45,212,191,0.45)] data-[lit=true]:shadow-[0_40px_90px_-30px_rgba(45,212,191,0.45)]",
         className,
       )}
     >
