@@ -36,7 +36,7 @@ jobs:
               await p.evaluate(async () => { for (let y = 0; y < document.body.scrollHeight; y += 600) { window.scrollTo(0, y); await new Promise((r) => setTimeout(r, 120)); } window.scrollTo(0, 0); });
               await p.waitForTimeout(600);
               if (name === "m") {
-                const wide = await p.evaluate(() => { const W = document.documentElement.clientWidth; return [...document.querySelectorAll("body *")].filter((e) => { const r = e.getBoundingClientRect(); return r.right > W + 1 && r.width > 0 && getComputedStyle(e).position !== "fixed"; }).slice(0, 8).map((e) => `${e.tagName}.${String(e.className).slice(0, 90)} right=${Math.round(e.getBoundingClientRect().right)}`); });
+                const wide = await p.evaluate(() => { const W = document.documentElement.clientWidth; const clipped = (e) => { for (let x = e.parentElement; x && x !== document.body; x = x.parentElement) { const s = getComputedStyle(x); if (/(hidden|clip|auto|scroll)/.test(s.overflowX)) return true; } return false; }; return { scrollW: document.documentElement.scrollWidth, items: [...document.querySelectorAll("body *")].filter((e) => { const r = e.getBoundingClientRect(); return r.right > W + 1 && r.width > 0 && !clipped(e); }).slice(0, 10).map((e) => `${e.tagName}.${String(e.getAttribute("class")).slice(0, 120)} right=${Math.round(e.getBoundingClientRect().right)}`) }; });
                 console.log("overflow", r, JSON.stringify(wide));
               }
               const f = `shots/${name}${r === "/" ? "-home" : r.replaceAll("/", "-")}.png`;
