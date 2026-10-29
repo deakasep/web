@@ -1,0 +1,58 @@
+# SEMENTARA (dihapus sebelum merge): screenshot halaman PR untuk dicek AI agent, didorong ke branch preview/screens.
+name: preview-screens
+on:
+  push:
+    branches: [claude/website-tahap-1]
+permissions:
+  contents: write
+jobs:
+  screens:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npm run build
+      - run: |
+          npm i --no-save playwright@1.56.1
+          npx playwright install --with-deps chromium
+          npx vite preview --port 4173 --strictPort &
+          sleep 3
+          cat > shot.mjs <<'JS'
+          import { chromium } from "playwright";
+          const routes = ["/", "/agen", "/agen/tara", "/agen/nova", "/harga", "/brain-ai", "/integrasi", "/kebijakan-privasi", "/penghapusan-data", "/tidak-ada"];
+          const b = await chromium.launch();
+          for (const [name, vp] of [["d", { width: 1440, height: 900 }], ["m", { width: 390, height: 844 }]]) {
+            const p = await b.newPage({ viewport: vp, reducedMotion: "reduce" });
+            const errs = [];
+            p.on("pageerror", (e) => errs.push(e.message));
+            p.on("console", (m) => m.type() === "error" && errs.push(m.text()));
+            for (const r of routes) {
+              await p.goto("http://localhost:4173" + r, { waitUntil: "networkidle" });
+              await p.evaluate(async () => { for (let y = 0; y < document.body.scrollHeight; y += 600) { window.scrollTo(0, y); await new Promise((r) => setTimeout(r, 120)); } window.scrollTo(0, 0); });
+              await p.waitForTimeout(600);
+              const f = `shots/${name}${r === "/" ? "-home" : r.replaceAll("/", "-")}.png`;
+              await p.screenshot({ path: f, fullPage: true });
+              console.log(f, await p.title());
+            }
+            // Menu
+            await p.goto("http://localhost:4173/", { waitUntil: "networkidle" });
+            if (name === "d") { await p.getByRole("button", { name: "Agen AI" }).click(); } else { await p.getByRole("button", { name: "Buka menu" }).click(); }
+            await p.waitForTimeout(500);
+            await p.screenshot({ path: `shots/${name}-menu.png` });
+            // SPA nav
+            if (name === "d") { await p.getByRole("link", { name: /Tara/ }).first().click(); await p.waitForTimeout(800); console.log("nav->", p.url(), await p.title()); }
+            console.log(name, "errors:", JSON.stringify(errs));
+          }
+          await b.close();
+          JS
+          mkdir -p shots && node shot.mjs | tee shots/log.txt
+      - run: |
+          cd shots
+          git init -q && git checkout -q -b preview/screens
+          git -c user.name=ci -c user.email=ci@local add . && git -c user.name=ci -c user.email=ci@local commit -qm "screens ${GITHUB_SHA}"
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" preview/screens
