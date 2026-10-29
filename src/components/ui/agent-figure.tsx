@@ -40,7 +40,7 @@ export function AgentFigure({
           draggable={false}
           className="size-full object-contain object-bottom drop-shadow-[0_18px_24px_rgba(0,0,0,0.35)]"
         />
-        {a.eyes.map((e, k) => (
+        {a.eyes?.map((e, k) => (
           <span
             key={k}
             aria-hidden

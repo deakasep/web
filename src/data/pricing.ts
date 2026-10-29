@@ -46,9 +46,9 @@ export const creditCosts: CreditCost[] = [
 ];
 
 export const faq = [
-  { q: "Apa yang terjadi kalau kredit habis?", a: "Agent berhenti sebelum memanggil AI, jadi tidak ada tagihan tambahan. Draft yang sudah jadi tetap tersimpan. Top up dari dashboard dan agent langsung bisa bekerja lagi." },
+  { q: "Apa yang terjadi kalau kredit habis?", a: "Anda cukup menerima pemberitahuan di dashboard: saat kredit menipis dan saat habis. Agent berhenti sebelum memanggil AI, jadi tidak ada tagihan tambahan, dan draft yang sudah jadi tetap tersimpan. Top up dari dashboard dan agent langsung bekerja lagi." },
   { q: "Apakah AI memposting sendiri?", a: "Tidak. Konten hanya terposting setelah Anda (atau approver yang Anda tunjuk) menekan Setujui untuk versi itu." },
-  { q: "Perlu API key atau akun AI sendiri?", a: "Tidak. Semua biaya AI sudah termasuk dalam kredit. Anda cukup membayar paket dan, bila perlu, top up." },
+  { q: "Perlu API key atau akun AI sendiri?", a: "Tidak. Anda tidak perlu mendaftar ke OpenAI, Google, atau penyedia AI lain. Semua pemakaian AI diatur otomatis oleh sistem CLAU dan sudah termasuk dalam kredit; Anda cukup membayar paket dan, bila perlu, top up." },
   { q: "Kalau job AI gagal, kredit hilang?", a: "Tidak. Job yang gagal karena sistem atau provider AI mengembalikan kreditnya otomatis." },
   { q: "Bayar pakai apa?", a: "QRIS, virtual account bank, dan e-wallet lewat payment gateway resmi. Kami tidak menyimpan data kartu atau rekening Anda." },
   { q: "Bagaimana cara berhenti?", a: "Paket tidak diperpanjang otomatis. Cukup tidak membayar periode berikutnya." },
