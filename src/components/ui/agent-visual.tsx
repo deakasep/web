@@ -1,25 +1,33 @@
-import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
+import { motion, useInView, useMotionValue, useSpring, useTransform } from "motion/react";
+import { useRef } from "react";
 import { AgentFigure } from "@/components/ui/agent-figure";
 import { HospitalityScene } from "@/components/ui/hospitality-scenes";
 import { sceneImage, type Agent } from "@/data/agents";
+import { useAmbientPointer, useTouchLit } from "@/lib/ambient";
 import { cn } from "@/lib/utils";
 
-// Figur menoleh mengikuti kursor di dalam kartu.
+// Figur menoleh mengikuti kursor di dalam kartu; di layar sentuh menoleh sendiri (giroskop / gerak pelan).
 function CardFigure({ a, i, height }: { a: Agent; i: number; height: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { margin: "0px" });
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
+  useAmbientPointer(mx, my, { phase: i * 1.7, active: inView });
   const rotateY = useSpring(useTransform(mx, [-1, 1], [-9, 9]), { stiffness: 120, damping: 16 });
   const rotateX = useSpring(useTransform(my, [-1, 1], [5, -5]), { stiffness: 120, damping: 16 });
 
   return (
     <div
+      ref={ref}
       className="absolute inset-0 [perspective:900px]"
       onPointerMove={(e) => {
+        if (e.pointerType !== "mouse") return;
         const r = e.currentTarget.getBoundingClientRect();
         mx.set(((e.clientX - r.left) / r.width) * 2 - 1);
         my.set(((e.clientY - r.top) / r.height) * 2 - 1);
       }}
-      onPointerLeave={() => {
+      onPointerLeave={(e) => {
+        if (e.pointerType !== "mouse") return;
         mx.set(0);
         my.set(0);
       }}
@@ -35,10 +43,16 @@ function CardFigure({ a, i, height }: { a: Agent; i: number; height: string }) {
 
 /** Ruangan agen + figur + label suasana & status. Induk menentukan ukuran (mis. aspect-[3/4]). */
 export function AgentVisual({ a, i, figureHeight = "80%", className }: { a: Agent; i: number; figureHeight?: string; className?: string }) {
+  // Layar sentuh: efek hover laptop (figur naik, ruangan zoom, cahaya) jalan saat kartu masuk ke tengah layar.
+  const [ref, lit, touch] = useTouchLit<HTMLDivElement>(0.65);
   return (
-    <div
+    <motion.div
+      ref={ref}
+      data-lit={lit}
+      whileInView={touch ? "hover" : undefined}
+      viewport={{ amount: 0.65 }}
       className={cn(
-        "relative overflow-hidden rounded-[28px] shadow-[0_30px_80px_-30px_rgba(0,0,0,0.9)] ring-1 ring-white/10 transition-shadow duration-500 group-hover:shadow-[0_40px_90px_-30px_rgba(45,212,191,0.45)]",
+        "relative overflow-hidden rounded-[28px] shadow-[0_30px_80px_-30px_rgba(0,0,0,0.9)] ring-1 ring-white/10 transition-shadow duration-500 group-hover:shadow-[0_40px_90px_-30px_rgba(45,212,191,0.45)] data-[lit=true]:shadow-[0_40px_90px_-30px_rgba(45,212,191,0.45)]",
         className,
       )}
     >
@@ -68,6 +82,6 @@ export function AgentVisual({ a, i, figureHeight = "80%", className }: { a: Agen
           {a.active ? "Aktif" : "Segera hadir"}
         </span>
       </div>
-    </div>
+    </motion.div>
   );
 }

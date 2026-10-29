@@ -41,6 +41,7 @@ export function CTA() {
               viewport={{ once: true }}
               transition={{ delay: 0.2 + i * 0.06, type: "spring", stiffness: 260, damping: 18 }}
               whileHover={{ y: -6, scale: 1.1, zIndex: 10 }}
+              whileTap={{ y: -6, scale: 1.1, zIndex: 10 }}
               className="relative size-12 rounded-full border-2 border-ink bg-mint object-cover sm:size-14"
             />
           ))}

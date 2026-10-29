@@ -1,5 +1,6 @@
 // Diadaptasi dari 21st.dev — kokonutd/bento-grid: ditambah slot `visual`, rowSpan, dan hover Motion.
 import { motion } from "motion/react";
+import { useTouchLit } from "@/lib/ambient";
 import { cn } from "@/lib/utils";
 
 export interface BentoItem {
@@ -19,8 +20,19 @@ export function BentoGrid({ items }: { items: BentoItem[] }) {
   return (
     <div className="grid grid-cols-1 gap-4 md:auto-rows-[minmax(220px,auto)] md:grid-cols-3">
       {items.map((item, index) => (
+        <BentoCard key={item.title} item={item} index={index} />
+      ))}
+    </div>
+  );
+}
+
+function BentoCard({ item, index }: { item: BentoItem; index: number }) {
+  // HP/tablet: efek hover (naik, cahaya, pola titik) menyala saat kartu di tengah layar.
+  const [ref, lit] = useTouchLit<HTMLDivElement>();
+  return (
         <motion.div
-          key={item.title}
+          ref={ref}
+          data-lit={lit}
           initial={{ opacity: 0, y: 32 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
@@ -28,18 +40,18 @@ export function BentoGrid({ items }: { items: BentoItem[] }) {
           whileHover={{ y: -4 }}
           className={cn(
             "group relative flex flex-col overflow-hidden rounded-3xl p-6 glass",
-            "transition-[border-color,box-shadow] duration-300 hover:border-teal-300/25",
-            "hover:shadow-[0_0_0_1px_rgba(45,212,191,0.08),0_24px_60px_-20px_rgba(45,212,191,0.25)]",
+            "transition-[border-color,box-shadow,translate] duration-300 hover:border-teal-300/25 data-[lit=true]:-translate-y-1 data-[lit=true]:border-teal-300/25",
+            "hover:shadow-[0_0_0_1px_rgba(45,212,191,0.08),0_24px_60px_-20px_rgba(45,212,191,0.25)] data-[lit=true]:shadow-[0_0_0_1px_rgba(45,212,191,0.08),0_24px_60px_-20px_rgba(45,212,191,0.25)]",
             item.colSpan === 2 && "md:col-span-2",
             item.rowSpan === 2 && "md:row-span-2",
             item.highlight && "border-teal-300/20 bg-gradient-to-br from-teal-500/[0.12] to-transparent",
           )}
         >
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[length:6px_6px] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-          <div className="pointer-events-none absolute -top-24 -right-24 size-48 rounded-full bg-teal-400/10 blur-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[length:6px_6px] opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-data-[lit=true]:opacity-100" />
+          <div className="pointer-events-none absolute -top-24 -right-24 size-48 rounded-full bg-teal-400/10 blur-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-data-[lit=true]:opacity-100" />
 
           <div className="relative flex items-center justify-between">
-            <div className="flex size-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-teal-300 transition-colors duration-300 group-hover:bg-teal-400/15">
+            <div className="flex size-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-teal-300 transition-colors duration-300 group-hover:bg-teal-400/15 group-data-[lit=true]:bg-teal-400/15">
               {item.icon}
             </div>
             {item.status && (
@@ -69,7 +81,5 @@ export function BentoGrid({ items }: { items: BentoItem[] }) {
             </div>
           )}
         </motion.div>
-      ))}
-    </div>
   );
 }

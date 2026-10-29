@@ -5,6 +5,7 @@ import { AgentFigure } from "@/components/ui/agent-figure";
 import { Button } from "@/components/ui/button";
 import { VillaLounge } from "@/components/ui/wide-scenes";
 import { agents } from "@/data/agents";
+import { useAmbientPointer } from "@/lib/ambient";
 
 const tara = agents.find((a) => a.id === "caption-writer")!;
 
@@ -21,6 +22,8 @@ export function Hero() {
   const my = useMotionValue(0);
   const sx = useSpring(mx, { stiffness: 60, damping: 18 });
   const sy = useSpring(my, { stiffness: 60, damping: 18 });
+  // HP/tablet: tanpa kursor, adegan & Tara tetap bergerak (miringkan HP, atau melayang pelan).
+  useAmbientPointer(mx, my, { strength: 0.8 });
   const far = { x: useTransform(sx, (v) => v * -12), y: useTransform(sy, (v) => v * -6) };
   const mid = { x: useTransform(sx, (v) => v * -26), y: useTransform(sy, (v) => v * -10) };
   const near = { x: useTransform(sx, (v) => v * -70), y: useTransform(sy, (v) => v * -24) };
@@ -37,6 +40,7 @@ export function Hero() {
       ref={ref}
       id="top"
       onPointerMove={(e) => {
+        if (e.pointerType !== "mouse") return;
         const r = e.currentTarget.getBoundingClientRect();
         mx.set(((e.clientX - r.left) / r.width) * 2 - 1);
         my.set(((e.clientY - r.top) / r.height) * 2 - 1);
@@ -72,7 +76,7 @@ export function Hero() {
               Kenalan dengan agent
             </Button>
           </motion.div>
-          <motion.ul {...fade(0.5)} className="mt-7 hidden flex-wrap gap-x-6 gap-y-2 text-sm text-slate-300 sm:flex">
+          <motion.ul {...fade(0.5)} className="mt-7 flex flex-wrap gap-x-5 gap-y-2 text-sm text-slate-300 sm:gap-x-6">
             {["Kredit tampil sebelum kerja", "Top up kapan saja", "Approve sebelum posting"].map((t) => (
               <li key={t} className="flex items-center gap-1.5">
                 <Check className="size-4 text-teal-300" /> {t}
@@ -92,6 +96,9 @@ export function Hero() {
       >
         <div className="absolute -bottom-2 left-1/2 h-8 w-[80%] -translate-x-1/2 rounded-[50%] bg-black/55 blur-lg" />
         <AgentFigure a={tara} i={0} rotateX={rotateX} rotateY={rotateY} eager />
+        {/* Kartu status versi HP/tablet: menempel di sisi Tara */}
+        <FloatChip compact className="top-[18%] -left-[46%] sm:-left-[40%]" delay={1.2} icon={<ShieldCheck className="size-3.5 text-emerald-300" />} title="8 kredit" sub="caption + cek fakta" />
+        <FloatChip compact className="bottom-[16%] -right-[44%] sm:-right-[38%]" delay={1.5} icon={<Lock className="size-3.5 text-teal-300" />} title="Setujui dulu" sub="baru terposting" />
       </motion.div>
 
       {/* Kartu status di dekat Tara (desktop) */}
@@ -101,18 +108,22 @@ export function Hero() {
   );
 }
 
-function FloatChip({ className, delay, icon, title, sub }: { className: string; delay: number; icon: React.ReactNode; title: string; sub: string }) {
+function FloatChip({ className, delay, icon, title, sub, compact = false }: { className: string; delay: number; icon: React.ReactNode; title: string; sub: string; compact?: boolean }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: [0, -8, 0] }}
       transition={{ opacity: { delay, duration: 0.6 }, y: { delay, duration: 6, repeat: Infinity, ease: "easeInOut" } }}
-      className={`absolute hidden items-center gap-3 rounded-2xl border border-white/15 bg-black/40 px-4 py-3 text-left shadow-[0_20px_50px_-20px_rgba(0,0,0,0.9)] backdrop-blur-md lg:flex ${className}`}
+      className={
+        compact
+          ? `absolute z-10 flex items-center gap-2 rounded-xl border border-white/15 bg-black/45 px-2.5 py-2 text-left whitespace-nowrap shadow-[0_16px_40px_-16px_rgba(0,0,0,0.9)] backdrop-blur-md lg:hidden ${className}`
+          : `absolute hidden items-center gap-3 rounded-2xl border border-white/15 bg-black/40 px-4 py-3 text-left shadow-[0_20px_50px_-20px_rgba(0,0,0,0.9)] backdrop-blur-md lg:flex ${className}`
+      }
     >
-      <span className="flex size-8 items-center justify-center rounded-lg bg-white/10">{icon}</span>
+      <span className={compact ? "flex size-6 items-center justify-center rounded-md bg-white/10" : "flex size-8 items-center justify-center rounded-lg bg-white/10"}>{icon}</span>
       <span>
-        <span className="block text-sm font-semibold text-white">{title}</span>
-        <span className="block text-xs text-slate-300">{sub}</span>
+        <span className={compact ? "block text-xs font-semibold text-white" : "block text-sm font-semibold text-white"}>{title}</span>
+        <span className={compact ? "block text-[10px] text-slate-300" : "block text-xs text-slate-300"}>{sub}</span>
       </span>
     </motion.div>
   );
