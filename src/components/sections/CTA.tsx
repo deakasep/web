@@ -53,7 +53,7 @@ export function CTA() {
           Mulai Rp149.000/bulan dengan 500 kredit, hemat hingga 22% untuk paket tahunan. Butuh bantuan memilih? Ngobrol dulu dengan tim kami.
         </p>
         <div className="relative mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <Button href="#paket">
+          <Button href="/harga">
             Pilih paket <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
           </Button>
           <Button href={CONTACT_URL} variant="ghost">

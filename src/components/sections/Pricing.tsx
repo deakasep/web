@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Reveal, SectionHeading } from "@/components/ui/reveal";
 import { MONTHLY_CREDITS, creditCosts, included, plans, rupiah, topups, type Plan } from "@/data/pricing";
-import { CONTACT_URL } from "@/data/site";
+import { CONTACT_URL, SIGNUP_URL } from "@/data/site";
 import { cn } from "@/lib/utils";
 
 // Model langganan (clau-core AI-CONSTITUTION v4.0.0 §4b). Angka dari src/data/pricing.ts.
@@ -72,7 +72,7 @@ export function Pricing() {
               ))}
             </ul>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <Button href={CONTACT_URL}>
+              <Button href={`${SIGNUP_URL}?paket=${plan.id}`}>
                 Mulai paket {plan.label} <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
               </Button>
               <p className="text-xs text-slate-400">QRIS · virtual account · e-wallet</p>
@@ -99,7 +99,7 @@ export function Pricing() {
           </Reveal>
         </div>
 
-        <Reveal className="mt-14">
+        <Reveal className="mt-14 scroll-mt-28" id="tarif">
           <h3 className="font-display text-2xl font-bold text-white">Berapa kredit tiap pekerjaan?</h3>
           <p className="mt-2 max-w-2xl text-sm text-slate-400">
             Jumlah kredit tampil sebelum agent bekerja. {MONTHLY_CREDITS} kredit cukup untuk, misalnya, 1 kalender + 30 caption + 10 balasan review dengan sisa untuk chat.
