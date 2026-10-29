@@ -68,7 +68,7 @@ export function Hero() {
               Lihat paket & harga
               <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
             </Button>
-            <Button href="#agent" variant="ghost">
+            <Button href="/agen" variant="ghost">
               Kenalan dengan agent
             </Button>
           </motion.div>

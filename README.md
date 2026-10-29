@@ -14,22 +14,28 @@ npm run build     # typecheck + build ke dist/
 
 ## Struktur
 
+Situs multi-halaman dengan router ringan sendiri (`src/lib/router.tsx`, History API, tanpa dependency tambahan).
+
+| Rute | File | Isi |
+|---|---|---|
+| `/` | `src/pages/Home.tsx` | Hero → Trusted By → Showcase → carousel agen → Contoh kerja → Desk Scene → Keamanan → Cara kerja → Harga → FAQ → CTA |
+| `/agen` | `src/pages/AgentsPage.tsx` | Semua agen, filter kategori & status |
+| `/agen/:nama` | `src/pages/AgentPage.tsx` | Detail agen: tugas, hasil, contoh SIMULASI, batas, tarif kredit, cara kerja |
+| `/harga` | `src/pages/PricingPage.tsx` | Paket, top up, tarif kredit (`#tarif`), manual vs CLAU, FAQ |
+| `/brain-ai` · `/integrasi` | `src/pages/BrainPage.tsx` · `IntegrationsPage.tsx` | Memori bisnis bersama · status integrasi kanal & pembayaran |
+| `/kebijakan-privasi` · `/syarat-layanan` · `/penghapusan-data` | `src/pages/legal/` | Draf dokumen legal (label Draf sampai `VITE_LEGAL_REVIEWED=1`) |
+
 | Path | Isi |
 |---|---|
-| `src/App.tsx` | Urutan section: Hero (lounge villa + Tara) → Trusted By → Showcase (close-up wajah agent) → The Agents (carousel) → Desk Scene (agent di meja resepsionis) → Keamanan Konten (Bento) → How it Works (+ diagram alur) → Pricing (paket + top up + tarif kredit) → FAQ → CTA |
-| `src/components/sections/` | Satu file per section |
-| `src/components/ui/orbiting-circles.tsx` | Dari 21st.dev `ruixen.ui/hero-section06`, diadaptasi tanpa Next.js |
-| `src/components/ui/bento-grid.tsx` | Dari 21st.dev `kokonutd/bento-grid`, ditambah slot visual + hover Motion |
-| `src/components/ui/agent-figure.tsx` | Figur agent hidup: napas/goyang idle, kedip (kelopak berwarna kulit), menoleh via rotateX/rotateY |
-| `src/components/ui/wide-scenes.tsx` · `hospitality-scenes.tsx` | Adegan SVG berlapis (parallax) untuk hero & meja · 12 ruangan hospitality per peran untuk kartu |
-| `src/components/ui/reveal.tsx` · `button.tsx` | Scroll reveal (fade-in + slide-up) dan tombol dengan hover Motion |
-| `public/agents/scene/` | (Opsional) render 3D dengan ruangan asli per agent; prompt & cara pasang: `docs/avatar-scene-prompts.md` |
-| `public/scenes/` · `scripts/scenes/` | Latar ilustrasi 4K berlapis (WebP 1920 & 3840) untuk hero & meja; dibuat ulang dengan `python3 scripts/scenes/build.py` (butuh Pillow + Playwright/Chromium) |
-| `src/data/agents.ts` | 12 agent, mengikuti `clau-agent/agents/registry.json`, + suasana ruangan (`scene`) per kartu |
-| `src/data/site.ts` | Navigasi + `CONTACT_URL` |
-| `src/data/pricing.ts` | Paket 1/3/6/12 bulan, top up, tarif kredit, FAQ (section `Pricing` + `FAQ`) |
-| `public/agents/` | Avatar 3D kepala 256×256 (orbit hero, CTA), salinan dari `clau-agent/frontend/public/agents/` |
-| `public/agents/full/` | Figur 3D full-body tanpa latar (carousel agent), dipotong dari master `clau-agent/agents/avatars/` dengan `rembg` (isnet-general-use), tinggi 900 px |
+| `src/data/site.ts` | Nama usaha, kontak, URL dashboard: **placeholder**, diisi lewat `.env` (`.env.example`) |
+| `src/data/pages.ts` | Judul & deskripsi tiap halaman (dipakai halaman dan prerender) |
+| `src/data/agents.ts` · `agent-details.ts` | Daftar agen (ikut `clau-agent/agents/registry.json`) · isi halaman agen (dari persona clau-agent) |
+| `src/data/pricing.ts` | Angka dari `clau-market/commercial/pricing.md` |
+| `src/components/sections/` | Section beranda + Navbar (mega menu, menu HP) & Footer |
+| `src/components/page/PageHero.tsx` · `ui/agent-visual.tsx` | Hero halaman dalam · ruangan + figur agen |
+| `scripts/prerender-routes.mjs` | Setelah build: HTML per rute (judul/meta benar), `404.html`, `sitemap.xml`, `robots.txt` |
+| `deploy/` · `docs/deploy.md` | Contoh nginx, skrip pasang/update VPS, panduan langkah demi langkah |
+| `public/agents/` · `public/scenes/` · `public/og-image.png` | Avatar, figur, latar, gambar share |
 
 ## Untuk AI agent
 

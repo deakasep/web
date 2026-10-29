@@ -40,3 +40,7 @@ export const avatar = (id: string) => `/agents/${id}.webp`;
 // Figur full-body tanpa latar (dipotong dari master clau-agent/agents/avatars).
 export const figure = (id: string) => `/agents/full/${id}.webp`;
 export const sceneImage = (id: string) => `/agents/scene/${id}.webp`;
+
+/** Halaman detail agen: /agen/<slug> (slug = nama kecil, mis. /agen/tara). */
+export const agentUrl = (a: Agent) => `/agen/${a.name.toLowerCase()}`;
+export const agentBySlug = (slug: string) => agents.find((a) => a.name.toLowerCase() === slug.toLowerCase());

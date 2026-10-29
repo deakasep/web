@@ -143,7 +143,7 @@ const compare = [
 export function Features() {
   return (
     <section id="keamanan" className="relative scroll-mt-24 py-24 sm:py-32">
-      <div className="absolute top-1/3 left-0 -z-10 size-[500px] rounded-full bg-teal-600/10 blur-[140px]" />
+      <div className="absolute top-1/3 left-0 -z-10 size-[min(500px,100vw)] rounded-full bg-teal-600/10 blur-[140px]" />
       <div className="mx-auto max-w-6xl px-4">
         <SectionHeading
           eyebrow="Keamanan Konten"

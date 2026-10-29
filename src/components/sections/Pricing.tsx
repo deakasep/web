@@ -4,19 +4,20 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Reveal, SectionHeading } from "@/components/ui/reveal";
 import { MONTHLY_CREDITS, creditCosts, included, plans, rupiah, topups, type Plan } from "@/data/pricing";
-import { CONTACT_URL } from "@/data/site";
+import { CONTACT_URL, SIGNUP_URL } from "@/data/site";
 import { cn } from "@/lib/utils";
 
 // Model langganan (clau-core AI-CONSTITUTION v4.0.0 §4b). Angka dari src/data/pricing.ts.
-export function Pricing() {
+/** `heading={false}` di halaman /harga (judul sudah ada di hero halaman). */
+export function Pricing({ heading = true }: { heading?: boolean }) {
   const [picked, setPicked] = useState<Plan["id"]>("12");
   const plan = plans.find((p) => p.id === picked)!;
 
   return (
-    <section id="paket" className="relative scroll-mt-24 py-24 sm:py-32">
+    <section id="paket" className={cn("relative scroll-mt-24", heading ? "py-24 sm:py-32" : "pb-16")}>
       <div className="absolute right-0 bottom-0 -z-10 size-[520px] rounded-full bg-emerald-500/10 blur-[140px]" />
       <div className="mx-auto max-w-6xl px-4">
-        <SectionHeading
+        {heading && <SectionHeading
           eyebrow="Paket"
           title={
             <>
@@ -24,9 +25,9 @@ export function Pricing() {
             </>
           }
           subtitle="Pilih durasi, bayar sekali, dan seluruh tim AI langsung bekerja. Makin panjang langganan, makin hemat."
-        />
+        />}
 
-        <Reveal className="mt-12 flex justify-center">
+        <Reveal className={cn("flex justify-center", heading && "mt-12")}>
           <div role="group" aria-label="Pilih durasi langganan" className="inline-flex flex-wrap justify-center gap-1 rounded-full p-1.5 glass">
             {plans.map((p) => {
               const on = p.id === picked;
@@ -72,7 +73,7 @@ export function Pricing() {
               ))}
             </ul>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <Button href={CONTACT_URL}>
+              <Button href={`${SIGNUP_URL}?paket=${plan.id}`}>
                 Mulai paket {plan.label} <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
               </Button>
               <p className="text-xs text-slate-400">QRIS · virtual account · e-wallet</p>
@@ -99,7 +100,7 @@ export function Pricing() {
           </Reveal>
         </div>
 
-        <Reveal className="mt-14">
+        <Reveal className="mt-14 scroll-mt-28" id="tarif">
           <h3 className="font-display text-2xl font-bold text-white">Berapa kredit tiap pekerjaan?</h3>
           <p className="mt-2 max-w-2xl text-sm text-slate-400">
             Jumlah kredit tampil sebelum agent bekerja. {MONTHLY_CREDITS} kredit cukup untuk, misalnya, 1 kalender + 30 caption + 10 balasan review dengan sisa untuk chat.

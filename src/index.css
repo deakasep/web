@@ -100,6 +100,11 @@ body {
 @utility animate-blink {
   animation: blink var(--blink-dur, 5s) ease-in-out var(--blink-delay, 0s) infinite;
   transform-origin: top;
+  /* Kelopak tertutup hanya saat animasi; tanpa animasi (reduced motion) mata tetap terbuka. */
+  transform: scaleY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-blink { animation: none !important; }
 }
 
 /* Elemen hidup di overlay adegan (hero & meja). */

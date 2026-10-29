@@ -34,7 +34,8 @@ Merge otomatis hanya untuk **kode/dokumentasi repo ini**. Bukan approval konten 
 
 ## 3. Aturan isi halaman
 
-- Tanpa harga di repo (dikirim lewat proposal), tanpa logo/testimoni klien sampai ada izin klien nyata.
+- Harga langganan & tarif kredit **publik** (AI-CONSTITUTION v4.0.0 §4b); angka hanya dari `clau-market/commercial/pricing.md` lewat `src/data/pricing.ts`. Tanpa logo/testimoni/statistik klien sampai ada data & izin klien nyata.
+- Data usaha & kontak hanya lewat `.env` (`src/data/site.ts`); jangan menulis email/nomor asli di kode.
 - Level approval & penanda risiko mengikuti `clau-market/rules/08`. Contoh data diberi label SIMULASI.
 - Avatar agent = karakter AI fiktif; aturan gambar: [docs/avatar-scene-prompts.md](docs/avatar-scene-prompts.md).
 - Klaim baru (angka, SLA, fitur) wajib bersumber dari repo CLAU (`clau-market/commercial/`, `clau-agent`); jangan mengarang.
