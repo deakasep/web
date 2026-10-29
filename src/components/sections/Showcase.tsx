@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { AgentFigure } from "@/components/ui/agent-figure";
 import { Reveal } from "@/components/ui/reveal";
 import { agents, avatar } from "@/data/agents";
+import { useAmbientPointer } from "@/lib/ambient";
 import { cn } from "@/lib/utils";
 
 // Close-up wajah agent di latar hitam (gaya kartu karakter): berganti otomatis, bisa dipilih, menoleh ke kursor.
@@ -23,16 +24,19 @@ export function Showcase() {
   const my = useMotionValue(0);
   const rotateY = useSpring(useTransform(mx, [-1, 1], [-12, 12]), { stiffness: 90, damping: 16 });
   const rotateX = useSpring(useTransform(my, [-1, 1], [7, -7]), { stiffness: 90, damping: 16 });
+  useAmbientPointer(mx, my);
 
   return (
     <section
       className="relative overflow-hidden bg-black py-20 sm:py-28"
       onPointerMove={(e) => {
+        if (e.pointerType !== "mouse") return;
         const r = e.currentTarget.getBoundingClientRect();
         mx.set(((e.clientX - r.left) / r.width) * 2 - 1);
         my.set(((e.clientY - r.top) / r.height) * 2 - 1);
       }}
-      onPointerLeave={() => {
+      onPointerLeave={(e) => {
+        if (e.pointerType !== "mouse") return;
         mx.set(0);
         my.set(0);
       }}
