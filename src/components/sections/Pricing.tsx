@@ -8,15 +8,16 @@ import { CONTACT_URL, SIGNUP_URL } from "@/data/site";
 import { cn } from "@/lib/utils";
 
 // Model langganan (clau-core AI-CONSTITUTION v4.0.0 §4b). Angka dari src/data/pricing.ts.
-export function Pricing() {
+/** `heading={false}` di halaman /harga (judul sudah ada di hero halaman). */
+export function Pricing({ heading = true }: { heading?: boolean }) {
   const [picked, setPicked] = useState<Plan["id"]>("12");
   const plan = plans.find((p) => p.id === picked)!;
 
   return (
-    <section id="paket" className="relative scroll-mt-24 py-24 sm:py-32">
+    <section id="paket" className={cn("relative scroll-mt-24", heading ? "py-24 sm:py-32" : "pb-16")}>
       <div className="absolute right-0 bottom-0 -z-10 size-[520px] rounded-full bg-emerald-500/10 blur-[140px]" />
       <div className="mx-auto max-w-6xl px-4">
-        <SectionHeading
+        {heading && <SectionHeading
           eyebrow="Paket"
           title={
             <>
@@ -24,9 +25,9 @@ export function Pricing() {
             </>
           }
           subtitle="Pilih durasi, bayar sekali, dan seluruh tim AI langsung bekerja. Makin panjang langganan, makin hemat."
-        />
+        />}
 
-        <Reveal className="mt-12 flex justify-center">
+        <Reveal className={cn("flex justify-center", heading && "mt-12")}>
           <div role="group" aria-label="Pilih durasi langganan" className="inline-flex flex-wrap justify-center gap-1 rounded-full p-1.5 glass">
             {plans.map((p) => {
               const on = p.id === picked;

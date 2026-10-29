@@ -41,9 +41,7 @@ export default function PricingPage() {
         }
         subtitle="Satu paket berisi semua agen dan 500 kredit setiap bulan. Setiap pekerjaan menampilkan jumlah kreditnya sebelum dijalankan. Tanpa biaya tersembunyi, tanpa perpanjangan otomatis."
       />
-      <div className="-mt-24">
-        <Pricing />
-      </div>
+      <Pricing heading={false} />
 
       <section className="relative py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-4">
