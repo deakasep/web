@@ -48,7 +48,7 @@ export function UseCases() {
                 {f.who.map((n) => {
                   const a = byName(n);
                   return (
-                    <motion.a key={n} href={agentUrl(a)} whileHover={{ y: -4, zIndex: 10 }} className="relative" title={`${a.name}, ${a.role}`}>
+                    <motion.a key={n} href={agentUrl(a)} whileHover={{ y: -4, zIndex: 10 }} whileTap={{ y: -4, zIndex: 10 }} className="relative" title={`${a.name}, ${a.role}`}>
                       <img src={avatar(a.id)} alt={`${a.name}, ${a.role}`} className="size-11 rounded-full border-2 border-ink bg-mint object-cover" loading="lazy" />
                     </motion.a>
                   );

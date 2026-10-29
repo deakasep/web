@@ -1,5 +1,5 @@
-import { useReducedMotion, type MotionValue } from "motion/react";
-import { useEffect, useState } from "react";
+import { useInView, useReducedMotion, type MotionValue } from "motion/react";
+import { useEffect, useRef, useState } from "react";
 
 /**
  * HP & tablet tidak punya kursor, jadi efek "menoleh ke kursor" & hover di laptop tidak pernah jalan di sana.
@@ -64,4 +64,17 @@ export function useAmbientPointer(mx: MotionValue<number>, my: MotionValue<numbe
   }, [touch, reduce, active, mx, my, phase, strength]);
 
   return touch;
+}
+
+/**
+ * Pengganti hover di layar sentuh: `lit` = true selama elemen berada di tengah layar (HP/tablet saja). Pasang
+ * `data-lit={lit}` pada elemen, lalu kelas `data-[lit=true]:…` / `group-data-[lit=true]:…` menyalakan efek yang
+ * di laptop muncul saat kursor di atasnya. Di laptop selalu false (hover biasa yang bekerja).
+ */
+export function useTouchLit<T extends Element>(amount = 0.6) {
+  const ref = useRef<T>(null);
+  const touch = useTouchDevice();
+  const reduce = useReducedMotion();
+  const inView = useInView(ref, { amount });
+  return [ref, touch && !reduce && inView, touch] as const;
 }

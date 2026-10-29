@@ -1,7 +1,8 @@
 import { ClipboardCheck, PenLine, ScanSearch, UserCheck, Send, Wallet } from "lucide-react";
 import { motion, useScroll, useSpring } from "motion/react";
-import { useRef } from "react";
+import { useRef, type ReactNode } from "react";
 import { Reveal, SectionHeading } from "@/components/ui/reveal";
+import { useTouchLit } from "@/lib/ambient";
 
 const steps = [
   { icon: Wallet, title: "Pilih paket & bayar", who: "Anda, 5 menit", body: "Paket 1, 3, 6, atau 12 bulan lewat QRIS, virtual account, atau e-wallet. Akun aktif begitu pembayaran terkonfirmasi, berikut 500 kredit bulan ini." },
@@ -53,15 +54,12 @@ export function HowItWorks() {
                 <span className="relative z-10 flex size-12 items-center justify-center rounded-2xl border border-teal-300/30 bg-ink-2 text-teal-300 shadow-[0_0_30px_-5px_rgba(45,212,191,0.5)] sm:absolute sm:top-0 sm:left-1/2 sm:-translate-x-1/2">
                   <s.icon className="size-5" />
                 </span>
-                <motion.div
-                  whileHover={{ y: -4 }}
-                  className={`rounded-3xl p-6 glass transition-colors duration-300 hover:border-teal-300/25 ${right ? "sm:col-start-2" : "sm:col-start-1 sm:text-right"}`}
-                >
+                <StepCard className={right ? "sm:col-start-2" : "sm:col-start-1 sm:text-right"}>
                   <span className="font-mono text-xs text-teal-300/80">0{i + 1}</span>
                   <h3 className="mt-1 font-display text-xl font-bold text-white">{s.title}</h3>
                   <p className="mt-1 text-xs font-medium tracking-wide text-slate-500 uppercase">{s.who}</p>
                   <p className="mt-3 text-sm leading-relaxed text-slate-400">{s.body}</p>
-                </motion.div>
+                </StepCard>
               </motion.li>
             );
           })}
@@ -152,5 +150,20 @@ function FlowDiagram() {
         </figcaption>
       </figure>
     </Reveal>
+  );
+}
+
+/** Kartu langkah: naik & bergaris teal saat disorot kursor; di HP/tablet saat berada di tengah layar. */
+function StepCard({ className, children }: { className: string; children: ReactNode }) {
+  const [ref, lit] = useTouchLit<HTMLDivElement>();
+  return (
+    <motion.div
+      ref={ref}
+      data-lit={lit}
+      whileHover={{ y: -4 }}
+      className={`rounded-3xl p-6 glass transition-[border-color,translate] duration-300 hover:border-teal-300/25 data-[lit=true]:-translate-y-1 data-[lit=true]:border-teal-300/25 ${className}`}
+    >
+      {children}
+    </motion.div>
   );
 }
