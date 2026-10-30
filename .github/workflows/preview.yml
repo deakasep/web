@@ -1,0 +1,35 @@
+# Build pratinjau (artifact claude.ai / bagikan cepat): base relatif + router memori, tanpa prerender.
+# Hasil diunggah sebagai artifact Actions "pratinjau" (7 hari) supaya bisa diambil sesi AI yang tidak bisa `npm ci`.
+name: Pratinjau
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pratinjau-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  pratinjau:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npx vite build --base ./ --outDir dist-pratinjau
+        env:
+          VITE_MEMORY_ROUTER: "1"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: pratinjau
+          path: dist-pratinjau
+          retention-days: 7
