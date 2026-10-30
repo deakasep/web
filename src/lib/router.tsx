@@ -11,6 +11,12 @@ type RouterValue = { path: string; navigate: (to: string, opts?: { replace?: boo
 
 const RouterContext = createContext<RouterValue>({ path: "/", navigate: () => {} });
 
+/**
+ * Mode pratinjau (build dengan VITE_MEMORY_ROUTER=1, mis. artifact claude.ai): rute disimpan di memori, tanpa History
+ * API dan tanpa mengubah URL, karena halaman berjalan di dalam frame yang path-nya bukan milik situs.
+ */
+const MEMORY = import.meta.env.VITE_MEMORY_ROUTER === "1";
+
 const normalize = (p: string) => (p.length > 1 && p.endsWith("/") ? p.slice(0, -1) : p) || "/";
 
 function scrollToHash(hash: string, smooth: boolean) {
@@ -22,10 +28,23 @@ function scrollToHash(hash: string, smooth: boolean) {
 }
 
 export function Router({ children }: { children: ReactNode }) {
-  const [path, setPath] = useState(() => normalize(window.location.pathname));
+  const [path, setPath] = useState(() => (MEMORY ? "/" : normalize(window.location.pathname)));
 
   const navigate = useCallback((to: string, opts: { replace?: boolean } = {}) => {
-    const url = new URL(to, window.location.href);
+    const url = new URL(to, MEMORY ? "https://pratinjau.local/" : window.location.href);
+    if (MEMORY) {
+      const next = normalize(url.pathname);
+      setPath((cur) => {
+        const same = cur === next;
+        requestAnimationFrame(() =>
+          requestAnimationFrame(() => {
+            if (!scrollToHash(url.hash, same)) window.scrollTo({ top: 0, behavior: "auto" });
+          }),
+        );
+        return next;
+      });
+      return;
+    }
     const same = normalize(url.pathname) === normalize(window.location.pathname);
     if (opts.replace) window.history.replaceState(null, "", url);
     else window.history.pushState(null, "", url);
@@ -46,6 +65,13 @@ export function Router({ children }: { children: ReactNode }) {
       if (!a || a.target || a.hasAttribute("download") || a.getAttribute("rel")?.includes("external")) return;
       const href = a.getAttribute("href");
       if (!href || href.startsWith("#") || href.startsWith("mailto:") || href.startsWith("tel:")) return;
+      if (MEMORY) {
+        // Link internal di pratinjau selalu diawali "/" (mis. "/harga", "/agen/tara", "/#faq").
+        if (!href.startsWith("/") || href.startsWith("//")) return;
+        e.preventDefault();
+        navigate(href);
+        return;
+      }
       const url = new URL(href, window.location.href);
       if (url.origin !== window.location.origin) return;
       e.preventDefault();

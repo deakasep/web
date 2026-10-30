@@ -4,6 +4,7 @@
 // Overlay memakai viewBox 3840×2160 + slice, sama dengan object-cover gambar, jadi posisinya pas.
 import { motion, type MotionValue } from "motion/react";
 import type { ReactNode } from "react";
+import { BASE } from "@/data/agents";
 
 type Layer = { x?: MotionValue<number>; y?: MotionValue<number> };
 
@@ -12,8 +13,8 @@ function SceneLayer({ name, style, eager, children }: { name: string; style?: La
     // Sedikit diperbesar supaya tepi tidak terlihat saat lapisan bergeser.
     <motion.div className="absolute inset-0 scale-[1.06]" style={style}>
       <img
-        src={`/scenes/${name}-1920.webp`}
-        srcSet={`/scenes/${name}-1920.webp 1920w, /scenes/${name}-3840.webp 3840w`}
+        src={`${BASE}scenes/${name}-1920.webp`}
+        srcSet={`${BASE}scenes/${name}-1920.webp 1920w, ${BASE}scenes/${name}-3840.webp 3840w`}
         sizes="100vw"
         alt=""
         aria-hidden
