@@ -1,4 +1,4 @@
-import { motion, useInView, useMotionValue, useSpring, useTransform } from "motion/react";
+import { motion, useInView, useMotionValue, useReducedMotion, useSpring, useTransform } from "motion/react";
 import { useRef } from "react";
 import { AgentFigure } from "@/components/ui/agent-figure";
 import { HospitalityScene } from "@/components/ui/hospitality-scenes";
@@ -41,6 +41,56 @@ function CardFigure({ a, i, height }: { a: Agent; i: number; height: string }) {
   );
 }
 
+/**
+ * Foto adegan agen yang "hidup" (gaya sintra.ai): gambar persegi dipusatkan seperti object-cover, napas pelan
+ * (skala & goyang sangat kecil dari titik kaki), dan kedip lewat kelopak berwarna kulit di posisi `sceneEyes`.
+ * Kelopak ikut bergerak karena berada di panggung yang sama. Reduced motion: diam, mata terbuka.
+ */
+function LiveScene({ a, i }: { a: Agent; i: number }) {
+  const still = useReducedMotion();
+  const dur = 4.4 + (i % 4) * 0.5;
+  const blinkDur = 3.8 + ((i * 7) % 5) * 0.55;
+  return (
+    <motion.div className="absolute inset-0" variants={{ hover: { scale: 1.06 } }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}>
+      {/* Panggung persegi setinggi kartu, dipusatkan: koordinat % mata = koordinat % gambar. */}
+      <motion.div
+        className="absolute top-0 left-1/2 aspect-square h-full -translate-x-1/2 [transform-origin:50%_85%]"
+        animate={still ? undefined : { scale: [1, 1.012, 1], rotate: [-0.22, 0.22, -0.22], y: ["0%", "-0.35%", "0%"] }}
+        transition={{ duration: dur, repeat: Infinity, ease: "easeInOut", delay: (i % 5) * 0.35 }}
+      >
+        <img
+          src={sceneImage(a.id)}
+          alt={`${a.name}, ${a.role}, di ${a.scene.setting.toLowerCase()}`}
+          loading="lazy"
+          draggable={false}
+          className="absolute inset-0 size-full"
+        />
+        {a.sceneEyes?.map((e, k) => (
+          <span
+            key={k}
+            aria-hidden
+            className="absolute animate-blink rounded-[50%] blur-[0.5px]"
+            style={
+              {
+                left: `${e.x - e.w / 2}%`,
+                top: `${e.y - e.h / 2}%`,
+                width: `${e.w}%`,
+                height: `${e.h}%`,
+                background: `radial-gradient(ellipse at 50% 35%, color-mix(in srgb, ${e.skin} 88%, white), ${e.skin} 85%)`,
+                "--blink-dur": `${blinkDur}s`,
+                "--blink-delay": `${-((i * 1.3) % blinkDur)}s`,
+              } as React.CSSProperties
+            }
+          >
+            <span className="absolute inset-x-[12%] top-[40%] h-[32%] rounded-b-full border-b-2 border-[#3b2418]/80" />
+          </span>
+        ))}
+      </motion.div>
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/25 via-transparent to-black/10" />
+    </motion.div>
+  );
+}
+
 /** Ruangan agen + figur + label suasana & status. Induk menentukan ukuran (mis. aspect-[3/4]). */
 export function AgentVisual({ a, i, figureHeight = "80%", className }: { a: Agent; i: number; figureHeight?: string; className?: string }) {
   // Layar sentuh: efek hover laptop (figur naik, ruangan zoom, cahaya) jalan saat kartu masuk ke tengah layar.
@@ -57,15 +107,7 @@ export function AgentVisual({ a, i, figureHeight = "80%", className }: { a: Agen
       )}
     >
       {a.sceneImage ? (
-        <motion.img
-          src={sceneImage(a.id)}
-          alt={`${a.name}, ${a.role}, di ${a.scene.setting.toLowerCase()}`}
-          loading="lazy"
-          draggable={false}
-          variants={{ hover: { scale: 1.06 } }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="absolute inset-0 size-full object-cover"
-        />
+        <LiveScene a={a} i={i} />
       ) : (
         <>
           <motion.div className="absolute inset-0" variants={{ hover: { scale: 1.05 } }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}>

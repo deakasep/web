@@ -1,7 +1,9 @@
 # Prompt Avatar 3D dengan Latar Ruangan
 
 > Untuk carousel **The Agents** di landing page. Tujuannya: setiap agent tampil sebagai figur 3D di dalam ruangan kerja yang sesuai perannya.
-> Status: **ASSUMPTION**. Gambar hasilnya perlu dicek Pak Indra / Dea Karisna sebelum dipakai publik (sama seperti status avatar di `clau-agent/agents/avatars/README.md`).
+> Status: **DATA FINAL** — gaya adegan (figur vinyl di ruang nyata, latar blur) disetujui owner Dea Karisna 2026-10-30; perintah owner di chat = persetujuan.
+> Gambar 1:1 (1024 px) dari prompt di `clau-agent/agents/avatars/adegan/PROMPT.md` juga didukung: kartu memusatkan gambar persegi, `sceneEyes` = posisi kelopak (% gambar) untuk kedip.
+> Sementara: Nova memakai hasil yang masih mirip Intan (perlu diulang), Teguh belum punya adegan (memakai figur + ruangan CSS).
 
 ## Aturan (wajib, dari brand-guideline § 3d dan README avatar)
 
