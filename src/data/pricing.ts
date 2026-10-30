@@ -1,4 +1,4 @@
-// Sumber angka: clau-market/commercial/pricing.md (AI-CONSTITUTION v4.0.0 §4b). Ubah di sana dulu, lalu di sini.
+// Sumber angka: clau-market/commercial/pricing.md v1.1.0 (AI-CONSTITUTION v4.0.0 §4b). Ubah di sana dulu, lalu di sini.
 // Patokan: 1 kredit = Rp200 (top up dasar); tarif tiap aksi minimal 3x biaya provider AI.
 
 export const MONTHLY_CREDITS = 500;
@@ -28,10 +28,14 @@ export const topups = [
   { credits: 1500, price: 250_000, note: "Bonus 20%" },
 ];
 
+/** Masa berlaku kredit top up (pricing.md v1.1.0 §2; sama dengan platform clau-agent 0.14.0). */
+export const TOPUP_VALID_MONTHS = 12;
+export const topupNote = `Kredit top up berlaku ${TOPUP_VALID_MONTHS} bulan sejak dibayar. Kredit bulanan dipakai dulu, lalu top up yang paling cepat kedaluwarsa; tanggal hangus terdekat terlihat di dashboard.`;
+
 export type CreditCost = { job: string; agent: string; credits: string; soon?: boolean };
 
 export const creditCosts: CreditCost[] = [
-  { job: "Chat dengan agent (per pesan)", agent: "Semua", credits: "2" },
+  { job: "Chat dengan agent (per pesan)", agent: "Semua", credits: "2", soon: true },
   { job: "Caption + hashtag + cek fakta", agent: "Tara", credits: "8" },
   { job: "Naskah Reels/TikTok", agent: "Raka", credits: "13" },
   { job: "Rangkaian Stories", agent: "Sekar", credits: "8" },
@@ -46,7 +50,10 @@ export const creditCosts: CreditCost[] = [
   { job: "Video AI 8 detik (standar / cepat)", agent: "Aruna", credits: "111 / 222", soon: true },
   { job: "Analisis data (1 file)", agent: "Dara", credits: "20", soon: true },
   { job: "Anotasi data (100 baris)", agent: "Dara", credits: "10", soon: true },
-  { job: "Tugas integrasi / developer", agent: "Teguh", credits: "39", soon: true },
+  { job: "Tugas integrasi / developer / website", agent: "Teguh", credits: "39", soon: true },
+  { job: "SOP / dokumen kerja", agent: "Teguh", credits: "10", soon: true },
+  { job: "Balas pertanyaan calon pelanggan", agent: "Galih", credits: "3", soon: true },
+  { job: "Pesan ke tamu (konfirmasi, pengingat)", agent: "Sari", credits: "3", soon: true },
 ];
 
 export const faq = [
@@ -54,6 +61,7 @@ export const faq = [
   { q: "Apakah AI memposting sendiri?", a: "Tidak. Konten hanya terposting setelah Anda (atau approver yang Anda tunjuk) menekan Setujui untuk versi itu." },
   { q: "Perlu API key atau akun AI sendiri?", a: "Tidak. Anda tidak perlu mendaftar ke OpenAI, Google, atau penyedia AI lain. Semua pemakaian AI diatur otomatis oleh sistem CLAU dan sudah termasuk dalam kredit; Anda cukup membayar paket dan, bila perlu, top up." },
   { q: "Kalau job AI gagal, kredit hilang?", a: "Tidak. Job yang gagal karena sistem atau provider AI mengembalikan kreditnya otomatis." },
+  { q: "Apakah kredit top up bisa hangus?", a: "Ya, kredit top up berlaku 12 bulan sejak dibayar, lalu sisanya hangus otomatis. Kredit bulanan selalu dipakai lebih dulu, lalu top up yang paling cepat kedaluwarsa, dan dashboard menampilkan berapa kredit yang akan hangus berikutnya beserta tanggalnya. Kredit yang dikembalikan karena job gagal tidak hangus. Top up tetap bisa dipakai meskipun paket sudah berakhir." },
   { q: "Bayar pakai apa?", a: "QRIS, virtual account bank, dan e-wallet lewat payment gateway resmi. Kami tidak menyimpan data kartu atau rekening Anda." },
   { q: "Bagaimana cara berhenti?", a: "Paket tidak diperpanjang otomatis. Cukup tidak membayar periode berikutnya." },
 ];
