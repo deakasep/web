@@ -3,7 +3,7 @@ import { motion } from "motion/react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Reveal, SectionHeading } from "@/components/ui/reveal";
-import { MONTHLY_CREDITS, creditCosts, included, plans, rupiah, topups, type Plan } from "@/data/pricing";
+import { MONTHLY_CREDITS, creditCosts, included, plans, rupiah, topupNote, topups, type Plan } from "@/data/pricing";
 import { CONTACT_URL, SIGNUP_URL } from "@/data/site";
 import { cn } from "@/lib/utils";
 
@@ -85,7 +85,7 @@ export function Pricing({ heading = true }: { heading?: boolean }) {
               <Coins className="size-5" />
               <h3 className="font-display text-xl font-bold text-white">Top up kredit</h3>
             </div>
-            <p className="mt-2 text-sm text-slate-400">Kredit bulanan habis sebelum waktunya? Isi ulang dari dashboard. Kredit top up berlaku 12 bulan.</p>
+            <p className="mt-2 text-sm text-slate-400">Kredit bulanan habis sebelum waktunya? Isi ulang dari dashboard. {topupNote}</p>
             <ul className="mt-6 flex flex-1 flex-col gap-3">
               {topups.map((t) => (
                 <li key={t.credits} className="flex items-center justify-between gap-4 rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-4">
