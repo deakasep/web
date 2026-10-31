@@ -44,14 +44,14 @@ export function AgentFigure({
           <span
             key={k}
             aria-hidden
-            className="absolute animate-blink rounded-[50%] blur-[0.4px]"
+            className="absolute animate-blink rounded-[50%] blur-[0.6px]"
             style={
               {
-                left: `${e.x - (e.w * 1.45) / 2}%`,
-                top: `${e.y - (e.h * 1.45) / 2}%`,
-                width: `${e.w * 1.45}%`,
-                height: `${e.h * 1.45}%`,
-                background: `radial-gradient(ellipse at 50% 30%, color-mix(in srgb, ${e.skin} 72%, white), color-mix(in srgb, ${e.skin} 85%, white) 80%)`,
+                left: `${e.x - e.w / 2}%`,
+                top: `${e.y - e.h / 2}%`,
+                width: `${e.w}%`,
+                height: `${e.h}%`,
+                background: `radial-gradient(ellipse at 50% 35%, color-mix(in srgb, ${e.skin} 88%, white), ${e.skin} 85%)`,
                 "--blink-dur": `${blinkDur}s`,
                 "--blink-delay": `${-((i * 1.3) % blinkDur)}s`,
               } as React.CSSProperties
