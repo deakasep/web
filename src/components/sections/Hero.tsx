@@ -45,16 +45,16 @@ export function Hero() {
         <LivePhoto name="tim-lobi" alt={HERO_ALT} ratio={HERO_RATIO} eyes={heroEyes} focusX={72} focusY={45} eager x={photoX} y={photoY} className="max-md:hidden" />
       </motion.div>
       {/* Gelap di sisi teks & bawah, supaya headline terbaca */}
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(5,8,13,0.8)_0%,rgba(5,8,13,0.7)_55%,rgba(5,8,13,0.9)_100%)] md:bg-[linear-gradient(90deg,rgba(5,8,13,0.92)_0%,rgba(5,8,13,0.7)_38%,rgba(5,8,13,0.05)_70%),linear-gradient(180deg,transparent_60%,rgba(5,8,13,0.9)_100%)]" />
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(5,8,13,0.8)_0%,rgba(5,8,13,0.7)_55%,rgba(5,8,13,0.9)_100%)] md:bg-[linear-gradient(90deg,rgba(5,8,13,0.94)_0%,rgba(5,8,13,0.75)_34%,rgba(5,8,13,0.05)_58%),linear-gradient(180deg,transparent_60%,rgba(5,8,13,0.9)_100%)]" />
 
       <motion.div style={{ y: textY }} className="relative mx-auto flex max-w-6xl flex-col justify-start px-4 pt-28 md:h-full md:justify-center md:pt-16">
-        <div className="max-w-2xl">
+        <div className="max-w-2xl lg:max-w-[34rem] xl:max-w-[38rem]">
           <motion.a {...fade(0.1)} href="#keamanan" className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-black/30 px-3 py-1.5 text-xs text-slate-200 backdrop-blur-md transition-colors hover:bg-black/50 sm:text-sm">
             <span className="flex h-5 items-center rounded-full bg-gradient-to-r from-teal-400 to-emerald-500 px-2 text-[10px] font-bold tracking-wide text-slate-950">BARU</span>
             Langganan mulai Rp149rb/bulan
             <ArrowRight className="size-3.5" />
           </motion.a>
-          <motion.h1 {...fade(0.2)} className="mt-6 font-display text-[2.5rem] leading-[1.02] font-extrabold tracking-[-0.03em] text-white sm:text-6xl lg:text-[4.6rem]">
+          <motion.h1 {...fade(0.2)} className="mt-6 font-display text-[2.5rem] leading-[1.02] font-extrabold tracking-[-0.03em] text-white sm:text-6xl lg:text-[4.1rem]">
             Karyawan AI untuk <span className="text-gradient">UMKM &amp; hospitality</span>
           </motion.h1>
           <motion.p {...fade(0.3)} className="mt-6 max-w-xl text-base leading-relaxed text-slate-300 sm:text-lg">
