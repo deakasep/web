@@ -94,7 +94,7 @@ export function Hero() {
   );
 }
 
-function FloatChip({ className, delay, icon, title, sub, compact = false }: { className: string; delay: number; icon: React.ReactNode; title: string; sub: string; compact?: boolean }) {
+export function FloatChip({ className, delay, icon, title, sub, compact = false }: { className: string; delay: number; icon: React.ReactNode; title: string; sub: string; compact?: boolean }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 16 }}
