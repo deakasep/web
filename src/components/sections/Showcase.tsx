@@ -67,7 +67,7 @@ export function Showcase() {
       {/* Jendela close-up: video persegi, tepi memudar ke hitam */}
       <div className="relative mx-auto aspect-square w-full max-w-[min(600px,100%)] [perspective:1100px]">
         <motion.div
-          className="absolute inset-0 [mask-image:radial-gradient(ellipse_62%_64%_at_50%_44%,#000_58%,transparent_100%)]"
+          className="absolute inset-0 [mask-image:radial-gradient(ellipse_50%_50%_at_50%_47%,#000_52%,transparent_97%)]"
           style={{ rotateX, rotateY }}
         >
           <AnimatePresence initial={false}>
