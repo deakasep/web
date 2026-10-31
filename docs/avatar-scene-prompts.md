@@ -3,6 +3,7 @@
 > Untuk carousel **The Agents** di landing page. Tujuannya: setiap agent tampil sebagai figur 3D di dalam ruangan kerja yang sesuai perannya.
 > Status: **DATA FINAL** — gaya adegan (figur vinyl di ruang nyata, latar blur) disetujui owner Dea Karisna 2026-10-30; perintah owner di chat = persetujuan.
 > 2026-10-31: ke-15 adegan diganti versi **tegak menghadap kamera** (prompt v2.1 di repo agent `agents/avatars/adegan/PROMPT.md`), 1024×1024 webp; Teguh kini punya adegan; posisi kedip (`sceneEyes`) diukur ulang untuk semua agent.
+> 2026-11-01: 15 **video agen** dari owner dipasang di `public/agents/video/<id>.mp4` (640×960, H.264, tanpa suara, loop maju-mundur; potongan dipilih sebelum properti berubah: Ayu 0–1,05 dtk, Dara 0–1,35, Intan 0–1,55, Laras 0–2,05; Galih dipendekkan jadi kedip biasa). Poster `<id>.webp` = frame pertama. Video diputar hanya saat terlihat; reduced motion = poster. Video tim lobi belum dipakai (ada Aruna ganda di akhir).
 > Gambar 1:1 (1024 px) dari prompt di `clau-agent/agents/avatars/adegan/PROMPT.md` juga didukung: kartu memusatkan gambar persegi, `sceneEyes` = posisi kelopak (% gambar) untuk kedip.
 > Sementara: Nova memakai hasil yang masih mirip Intan (perlu diulang), Teguh belum punya adegan (memakai figur + ruangan CSS).
 
