@@ -48,6 +48,9 @@ export const figure = (id: string) => `${BASE}agents/full/${id}.webp`;
 export const sceneImage = (id: string) => `${BASE}agents/scene/${id}.webp`;
 export const sceneVideo = (id: string) => `${BASE}agents/video/${id}.mp4`;
 export const scenePoster = (id: string) => `${BASE}agents/video/${id}.webp`;
+/** Video close-up kepala & bahu (persegi 900px) untuk Showcase; poster = frame pertama. */
+export const headVideo = (id: string) => `${BASE}agents/head/${id}.mp4`;
+export const headPoster = (id: string) => `${BASE}agents/head/${id}.webp`;
 
 /** Halaman detail agen: /agen/<slug> (slug = nama kecil, mis. /agen/tara). */
 export const agentUrl = (a: Agent) => `/agen/${a.name.toLowerCase()}`;

@@ -1,10 +1,11 @@
 import { motion, useInView, useMotionValue, useReducedMotion, useSpring, useTransform } from "motion/react";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { AgentFigure } from "@/components/ui/agent-figure";
 import { HospitalityScene } from "@/components/ui/hospitality-scenes";
 import { sceneImage, scenePoster, sceneVideo, type Agent } from "@/data/agents";
 import { useAmbientPointer, useTouchLit } from "@/lib/ambient";
 import { cn } from "@/lib/utils";
+import { usePlayInView } from "@/lib/video";
 
 // Figur menoleh mengikuti kursor di dalam kartu; di layar sentuh menoleh sendiri (giroskop / gerak pelan).
 function CardFigure({ a, i, height }: { a: Agent; i: number; height: string }) {
@@ -98,19 +99,7 @@ function LiveScene({ a, i }: { a: Agent; i: number }) {
 function SceneVideo({ a }: { a: Agent }) {
   const ref = useRef<HTMLVideoElement>(null);
   const still = useReducedMotion();
-  useEffect(() => {
-    const v = ref.current;
-    if (!v || still) return;
-    const io = new IntersectionObserver(
-      ([e]) => {
-        if (e.isIntersecting) v.play().catch(() => {});
-        else v.pause();
-      },
-      { threshold: 0.25 },
-    );
-    io.observe(v);
-    return () => io.disconnect();
-  }, [still]);
+  usePlayInView(ref, !still);
   return (
     <motion.div className="absolute inset-0" variants={{ hover: { scale: 1.05 } }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}>
       <video
