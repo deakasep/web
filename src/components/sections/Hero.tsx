@@ -1,13 +1,12 @@
 import { ArrowRight, Check, Lock, ShieldCheck } from "lucide-react";
 import { motion, useMotionValue, useScroll, useSpring, useTransform } from "motion/react";
 import { useRef } from "react";
-import { AgentFigure } from "@/components/ui/agent-figure";
 import { Button } from "@/components/ui/button";
-import { VillaLounge } from "@/components/ui/wide-scenes";
-import { agents } from "@/data/agents";
+import { LivePhoto } from "@/components/ui/live-photo";
+import { HERO_RATIO, heroEyes } from "@/data/hero-photos";
 import { useAmbientPointer } from "@/lib/ambient";
 
-const tara = agents.find((a) => a.id === "caption-writer")!;
+const HERO_ALT = "Tim AI coworkers CLAU: Aruna, Nova, Sari, dan Ayu berdiri di lobi hotel";
 
 const fade = (delay: number) => ({
   initial: { opacity: 0, y: 24 },
@@ -17,22 +16,17 @@ const fade = (delay: number) => ({
 
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
-  // Parallax kursor: lapisan jauh bergeser sedikit, dekat bergeser banyak, figur di antaranya.
+  // Parallax kursor halus pada foto; HP/tablet: gerak pelan otomatis (useAmbientPointer).
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
   const sx = useSpring(mx, { stiffness: 60, damping: 18 });
   const sy = useSpring(my, { stiffness: 60, damping: 18 });
-  // HP/tablet: tanpa kursor, adegan & Tara tetap bergerak (miringkan HP, atau melayang pelan).
   useAmbientPointer(mx, my, { strength: 0.8 });
-  const far = { x: useTransform(sx, (v) => v * -12), y: useTransform(sy, (v) => v * -6) };
-  const mid = { x: useTransform(sx, (v) => v * -26), y: useTransform(sy, (v) => v * -10) };
-  const near = { x: useTransform(sx, (v) => v * -70), y: useTransform(sy, (v) => v * -24) };
-  const figX = useTransform(sx, (v) => v * -38);
-  const rotateY = useTransform(sx, [-1, 1], [-10, 10]);
-  const rotateX = useTransform(sy, [-1, 1], [5, -5]);
+  const photoX = useTransform(sx, (v) => v * -14);
+  const photoY = useTransform(sy, (v) => v * -8);
   // Scroll: adegan sedikit membesar & teks naik saat digulir.
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const sceneScale = useTransform(scrollYProgress, [0, 1], [1, 1.12]);
+  const sceneScale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
   const textY = useTransform(scrollYProgress, [0, 1], [0, -80]);
 
   return (
@@ -48,7 +42,7 @@ export function Hero() {
       className="relative isolate overflow-hidden bg-ink md:h-[clamp(680px,100svh,940px)]"
     >
       <motion.div className="absolute inset-0 -z-20" style={{ scale: sceneScale }} initial={{ opacity: 0, scale: 1.06 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}>
-        <VillaLounge far={far} mid={mid} near={near} />
+        <LivePhoto name="tim-lobi" alt={HERO_ALT} ratio={HERO_RATIO} eyes={heroEyes} focusX={72} focusY={45} eager x={photoX} y={photoY} className="max-md:hidden" />
       </motion.div>
       {/* Gelap di sisi teks & bawah, supaya headline terbaca */}
       <div className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(5,8,13,0.8)_0%,rgba(5,8,13,0.7)_55%,rgba(5,8,13,0.9)_100%)] md:bg-[linear-gradient(90deg,rgba(5,8,13,0.92)_0%,rgba(5,8,13,0.7)_38%,rgba(5,8,13,0.05)_70%),linear-gradient(180deg,transparent_60%,rgba(5,8,13,0.9)_100%)]" />
@@ -86,24 +80,16 @@ export function Hero() {
         </div>
       </motion.div>
 
-      {/* Tara berdiri di lounge */}
-      <motion.div
-        className="relative mx-auto mt-4 h-[320px] [perspective:1000px] md:absolute md:right-[8%] md:bottom-[3%] md:mx-0 md:mt-0 md:h-[70%] lg:right-[12%]"
-        style={{ aspectRatio: tara.ratio, x: figX }}
-        initial={{ opacity: 0, y: 60 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.1, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-      >
-        <div className="absolute -bottom-2 left-1/2 h-8 w-[80%] -translate-x-1/2 rounded-[50%] bg-black/55 blur-lg" />
-        <AgentFigure a={tara} i={0} rotateX={rotateX} rotateY={rotateY} eager />
-        {/* Kartu status versi HP/tablet: menempel di sisi Tara */}
-        <FloatChip compact className="top-[18%] -left-[46%] sm:-left-[40%]" delay={1.2} icon={<ShieldCheck className="size-3.5 text-emerald-300" />} title="8 kredit" sub="caption + cek fakta" />
-        <FloatChip compact className="bottom-[16%] -right-[44%] sm:-right-[38%]" delay={1.5} icon={<Lock className="size-3.5 text-teal-300" />} title="Setujui dulu" sub="baru terposting" />
-      </motion.div>
+      {/* HP: foto tim di bawah teks */}
+      <div className="relative mx-4 mt-10 mb-12 aspect-[4/3] overflow-hidden rounded-[28px] ring-1 ring-white/10 md:hidden">
+        <LivePhoto name="tim-lobi" alt={HERO_ALT} ratio={HERO_RATIO} eyes={heroEyes} focusX={70} focusY={45} eager />
+        <FloatChip compact className="top-3 left-3" delay={1.2} icon={<ShieldCheck className="size-3.5 text-emerald-300" />} title="8 kredit" sub="caption + cek fakta" />
+        <FloatChip compact className="right-3 bottom-3" delay={1.5} icon={<Lock className="size-3.5 text-teal-300" />} title="Setujui dulu" sub="baru terposting" />
+      </div>
 
-      {/* Kartu status di dekat Tara (desktop) */}
-      <FloatChip className="top-[30%] right-[3%] lg:right-[5%]" delay={1.2} icon={<ShieldCheck className="size-4 text-emerald-300" />} title="8 kredit · caption + cek fakta" sub="Saldo tampil sebelum agent bekerja" />
-      <FloatChip className="bottom-[12%] right-[2%] lg:right-[4%]" delay={1.5} icon={<Lock className="size-4 text-teal-300" />} title="Terposting setelah Setujui" sub="Anda yang menekan tombol" />
+      {/* Kartu status di atas foto tim (desktop) */}
+      <FloatChip className="top-[17%] right-[4%] lg:right-[6%]" delay={1.2} icon={<ShieldCheck className="size-4 text-emerald-300" />} title="8 kredit · caption + cek fakta" sub="Saldo tampil sebelum agent bekerja" />
+      <FloatChip className="bottom-[9%] right-[30%] lg:right-[34%]" delay={1.5} icon={<Lock className="size-4 text-teal-300" />} title="Terposting setelah Setujui" sub="Anda yang menekan tombol" />
     </section>
   );
 }
@@ -117,7 +103,7 @@ function FloatChip({ className, delay, icon, title, sub, compact = false }: { cl
       className={
         compact
           ? `absolute z-10 flex items-center gap-2 rounded-xl border border-white/15 bg-black/45 px-2.5 py-2 text-left whitespace-nowrap shadow-[0_16px_40px_-16px_rgba(0,0,0,0.9)] backdrop-blur-md lg:hidden ${className}`
-          : `absolute hidden items-center gap-3 rounded-2xl border border-white/15 bg-black/40 px-4 py-3 text-left shadow-[0_20px_50px_-20px_rgba(0,0,0,0.9)] backdrop-blur-md lg:flex ${className}`
+          : `absolute z-10 hidden items-center gap-3 rounded-2xl border border-white/15 bg-black/40 px-4 py-3 text-left shadow-[0_20px_50px_-20px_rgba(0,0,0,0.9)] backdrop-blur-md lg:flex ${className}`
       }
     >
       <span className={compact ? "flex size-6 items-center justify-center rounded-md bg-white/10" : "flex size-8 items-center justify-center rounded-lg bg-white/10"}>{icon}</span>
