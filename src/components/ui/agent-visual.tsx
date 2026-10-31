@@ -1,8 +1,8 @@
 import { motion, useInView, useMotionValue, useReducedMotion, useSpring, useTransform } from "motion/react";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { AgentFigure } from "@/components/ui/agent-figure";
 import { HospitalityScene } from "@/components/ui/hospitality-scenes";
-import { sceneImage, type Agent } from "@/data/agents";
+import { sceneImage, scenePoster, sceneVideo, type Agent } from "@/data/agents";
 import { useAmbientPointer, useTouchLit } from "@/lib/ambient";
 import { cn } from "@/lib/utils";
 
@@ -91,6 +91,45 @@ function LiveScene({ a, i }: { a: Agent; i: number }) {
   );
 }
 
+/**
+ * Video agen (kedip & lambai asli) yang di-loop mulus: diputar hanya saat kartu terlihat, berhenti saat digulir lewat.
+ * Poster = frame pertama, jadi tidak ada lompatan saat video mulai. Reduced motion: hanya poster.
+ */
+function SceneVideo({ a }: { a: Agent }) {
+  const ref = useRef<HTMLVideoElement>(null);
+  const still = useReducedMotion();
+  useEffect(() => {
+    const v = ref.current;
+    if (!v || still) return;
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) v.play().catch(() => {});
+        else v.pause();
+      },
+      { threshold: 0.25 },
+    );
+    io.observe(v);
+    return () => io.disconnect();
+  }, [still]);
+  return (
+    <motion.div className="absolute inset-0" variants={{ hover: { scale: 1.05 } }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}>
+      <video
+        ref={ref}
+        src={still ? undefined : sceneVideo(a.id)}
+        poster={scenePoster(a.id)}
+        muted
+        loop
+        playsInline
+        preload="none"
+        disablePictureInPicture
+        aria-label={`${a.name}, ${a.role}, di ${a.scene.setting.toLowerCase()}`}
+        className="absolute inset-0 size-full object-cover object-[50%_40%]"
+      />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/25 via-transparent to-black/10" />
+    </motion.div>
+  );
+}
+
 /** Ruangan agen + figur + label suasana & status. Induk menentukan ukuran (mis. aspect-[3/4]). */
 export function AgentVisual({ a, i, figureHeight = "80%", className }: { a: Agent; i: number; figureHeight?: string; className?: string }) {
   // Layar sentuh: efek hover laptop (figur naik, ruangan zoom, cahaya) jalan saat kartu masuk ke tengah layar.
@@ -106,7 +145,9 @@ export function AgentVisual({ a, i, figureHeight = "80%", className }: { a: Agen
         className,
       )}
     >
-      {a.sceneImage ? (
+      {a.sceneVideo ? (
+        <SceneVideo a={a} />
+      ) : a.sceneImage ? (
         <LiveScene a={a} i={i} />
       ) : (
         <>
