@@ -1,13 +1,34 @@
-import { AnimatePresence, motion, useMotionValue, useSpring, useTransform } from "motion/react";
-import { useEffect, useState } from "react";
-import { AgentFigure } from "@/components/ui/agent-figure";
+import { AnimatePresence, motion, useMotionValue, useReducedMotion, useSpring, useTransform } from "motion/react";
+import { useEffect, useRef, useState } from "react";
 import { Reveal } from "@/components/ui/reveal";
-import { agents, avatar } from "@/data/agents";
+import { agents, avatar, headPoster, headVideo, type Agent } from "@/data/agents";
 import { useAmbientPointer } from "@/lib/ambient";
 import { cn } from "@/lib/utils";
+import { usePlayInView } from "@/lib/video";
 
-// Close-up wajah agent di latar hitam (gaya kartu karakter): berganti otomatis, bisa dipilih, menoleh ke kursor.
-const FIG_H = 900; // tinggi figur penuh (px) sebelum di-crop ke bagian kepala
+// Close-up wajah agent di latar hitam (gaya kartu karakter): video asli (kedip & lambai) berganti otomatis, bisa dipilih,
+// sedikit miring mengikuti kursor. Tepi video memudar ke hitam supaya menyatu dengan section.
+const GANTI_MS = 6000;
+
+function HeadVideo({ a }: { a: Agent }) {
+  const ref = useRef<HTMLVideoElement>(null);
+  const still = useReducedMotion();
+  usePlayInView(ref, !still, 0.2);
+  return (
+    <video
+      ref={ref}
+      src={still ? undefined : headVideo(a.id)}
+      poster={headPoster(a.id)}
+      muted
+      loop
+      playsInline
+      preload="auto"
+      disablePictureInPicture
+      aria-label={`${a.name}, ${a.role}`}
+      className="size-full object-cover"
+    />
+  );
+}
 
 export function Showcase() {
   const [idx, setIdx] = useState(0);
@@ -16,14 +37,14 @@ export function Showcase() {
 
   useEffect(() => {
     if (paused) return;
-    const t = setInterval(() => setIdx((v) => (v + 1) % agents.length), 4200);
+    const t = setInterval(() => setIdx((v) => (v + 1) % agents.length), GANTI_MS);
     return () => clearInterval(t);
   }, [paused]);
 
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
-  const rotateY = useSpring(useTransform(mx, [-1, 1], [-12, 12]), { stiffness: 90, damping: 16 });
-  const rotateX = useSpring(useTransform(my, [-1, 1], [7, -7]), { stiffness: 90, damping: 16 });
+  const rotateY = useSpring(useTransform(mx, [-1, 1], [-6, 6]), { stiffness: 90, damping: 16 });
+  const rotateX = useSpring(useTransform(my, [-1, 1], [4, -4]), { stiffness: 90, damping: 16 });
   useAmbientPointer(mx, my);
 
   return (
@@ -43,23 +64,26 @@ export function Showcase() {
     >
       <div className="absolute top-1/3 left-1/2 -z-0 size-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-teal-500/15 blur-[120px]" />
 
-      {/* Jendela crop kepala */}
-      <div className="relative mx-auto h-[360px] w-full max-w-[760px] overflow-hidden [perspective:1100px] sm:h-[500px] lg:h-[600px]">
-        <AnimatePresence mode="popLayout" initial={false}>
-          <motion.div
-            key={a.id}
-            initial={{ opacity: 0, y: 60, scale: 0.94 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -40, scale: 1.04 }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute top-0 left-1/2 origin-top -translate-x-1/2 scale-[0.6] sm:scale-[0.85] lg:scale-100"
-            style={{ height: FIG_H, aspectRatio: a.ratio }}
-          >
-            <AgentFigure a={a} i={idx} rotateX={rotateX} rotateY={rotateY} />
-          </motion.div>
-        </AnimatePresence>
-        {/* Pantulan lantai/kabut di bawah kepala */}
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[40%] bg-gradient-to-b from-transparent via-black/70 to-black" />
+      {/* Jendela close-up: video persegi, tepi memudar ke hitam */}
+      <div className="relative mx-auto aspect-square w-full max-w-[min(600px,100%)] [perspective:1100px]">
+        <motion.div
+          className="absolute inset-0 [mask-image:radial-gradient(ellipse_62%_64%_at_50%_44%,#000_58%,transparent_100%)]"
+          style={{ rotateX, rotateY }}
+        >
+          <AnimatePresence initial={false}>
+            <motion.div
+              key={a.id}
+              initial={{ opacity: 0, scale: 1.04 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+              className="absolute inset-0"
+            >
+              <HeadVideo a={a} />
+            </motion.div>
+          </AnimatePresence>
+        </motion.div>
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[30%] bg-gradient-to-b from-transparent to-black" />
       </div>
 
       <div className="relative mx-auto max-w-4xl px-4 text-center">
