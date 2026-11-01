@@ -1,4 +1,4 @@
-// Isi halaman /agen/:slug. Sumber: clau-agent/agents/personas/<id>.md (peran, keahlian, batas, contoh fiktif)
+// Isi halaman /agen/:slug (fitur, alur kerja & checklist ada di data/capabilities.ts). Sumber: clau-agent/agents/personas/<id>.md (peran, keahlian, batas, contoh fiktif)
 // dan clau-market/commercial/pricing.md (tarif kredit). Contoh di sini selalu FIKTIF/SIMULASI.
 
 export type Category = "konten" | "sales" | "data" | "operasional";
@@ -17,7 +17,6 @@ export type AgentDetail = {
   headline: string;
   /** "Seperti ..." dari kartu persona. */
   like: string;
-  tasks: string[];
   outputs: string[];
   example: { title: string; text: string };
   limits: string[];
@@ -31,7 +30,6 @@ export const details: Record<string, AgentDetail> = {
     category: "konten",
     headline: "Caption yang terdengar seperti bisnis Anda, bukan seperti robot.",
     like: "Copywriter senior yang bertahun-tahun menulis untuk toko, kafe, dan villa di Indonesia.",
-    tasks: ["Hook satu baris yang menghentikan scroll", "Cerita singkat dari detail nyata produk atau tempat Anda", "Satu ajakan (CTA) yang jelas per caption", "Hashtag relevan dan versi dua bahasa bila perlu"],
     outputs: ["Caption feed siap tempel untuk Instagram, Facebook, dan TikTok", "Tabel klaim: setiap fakta dicocokkan ke Brain bisnis", "Saran jadwal tayang di kalender konten"],
     example: {
       title: "Caption feed · villa (fiktif)",
@@ -46,7 +44,6 @@ export const details: Record<string, AgentDetail> = {
     category: "konten",
     headline: "Naskah Reels per detik, tinggal Anda rekam.",
     like: "Content creator video yang paham ritme tiga detik pertama dan cara syuting yang jujur.",
-    tasks: ["Hook visual di 0–3 detik", "Shot list per detik lengkap dengan arah kamera", "Teks layar pendek (maksimal 6 kata)", "Penutup dengan satu ajakan"],
     outputs: ["Naskah Reels/TikTok 15–30 detik", "Shot list untuk Anda atau kru", "Caption pendamping"],
     example: {
       title: "Naskah Reels 10 detik (fiktif)",
@@ -61,7 +58,6 @@ export const details: Record<string, AgentDetail> = {
     category: "konten",
     headline: "Stories harian yang mengajak follower berinteraksi.",
     like: "Admin media sosial yang setiap hari membuat Stories singkat dan interaktif.",
-    tasks: ["Rangkaian 3–5 frame dengan alur yang jelas", "Teks maksimal 8 kata per frame", "Satu stiker interaktif per frame (poll, kuis, tanya)", "Satu ajakan di frame terakhir"],
     outputs: ["Set Stories siap dibuat di Instagram/Facebook", "Saran stiker dan aset per frame"],
     example: { title: "Stories 3 frame (fiktif)", text: "F1: \"Pagi pertama di Villa Contoh?\"\nF2: \"Sarapan: Indonesia atau kontinental?\" [poll]\nF3: \"DM kami untuk cek tanggal\"" },
     limits: ["Promo dan harga hanya dari Brain bisnis yang sudah Anda konfirmasi", "Tidak memakai foto pelanggan tanpa izin"],
@@ -73,7 +69,6 @@ export const details: Record<string, AgentDetail> = {
     category: "konten",
     headline: "Deskripsi produk dan listing yang rapi, lengkap, dan mudah ditemukan.",
     like: "Staf e-commerce yang teliti dan paham aturan tiap marketplace serta OTA.",
-    tasks: ["Deskripsi produk, kamar, atau layanan yang terstruktur", "Kata kunci yang dicari pembeli", "Informasi penting di depan: ukuran, syarat, jam", "Konsisten antar kanal"],
     outputs: ["Deskripsi untuk marketplace, OTA, atau website", "Daftar poin \"good to know\""],
     example: { title: "Listing OTA (fiktif)", text: "Villa Contoh Ubud memiliki 3 kamar tidur ber-AC dan kolam renang privat. Sarapan tidak termasuk; kitchenette tersedia. Check-in 15.00, check-out 11.00 WITA. Good to know: 12 anak tangga menuju kamar atas." },
     limits: ["Tidak mengubah harga atau ketersediaan di sistem Anda; Anda yang menempelkan teksnya", "Visual AI tidak dipakai sebagai foto produk/kamar asli"],
@@ -85,7 +80,6 @@ export const details: Record<string, AgentDetail> = {
     category: "konten",
     headline: "Balasan review yang tenang, spesifik, dan tidak defensif.",
     like: "Guest relations manager yang empatik dan tahu kapan harus melibatkan pemilik usaha.",
-    tasks: ["Terima kasih yang menyebut detail review", "Permintaan maaf yang tulus untuk keluhan", "Arahkan ke kanal privat untuk masalah detail", "Pisahkan review negatif untuk Anda putuskan"],
     outputs: ["Draft balasan review Google & OTA", "Draft balasan komentar Instagram/Facebook"],
     example: { title: "Balasan review bintang 4 (fiktif)", text: "Terima kasih, Kak Rina, sudah menceritakan pengalamannya. Kami ikut senang sarapan di taman jadi momen favorit. Soal air panas yang lama keluar di kamar atas, kami minta maaf; tim teknis sedang memeriksanya." },
     limits: ["Review rating 3 ke bawah selalu diteruskan ke Anda", "Tidak menjanjikan refund, kompensasi, atau diskon", "Keluhan serius (kesehatan, keselamatan, hukum) langsung eskalasi"],
@@ -97,7 +91,6 @@ export const details: Record<string, AgentDetail> = {
     category: "konten",
     headline: "Kalender konten sebulan penuh, mengikuti kalender Indonesia.",
     like: "Content strategist yang paham ritme bisnis dan musim ramai di Indonesia.",
-    tasks: ["Kalender bulanan per kanal", "Pilar konten seimbang: produk, cerita, promo, edukasi", "Libur nasional, cuti bersama, Ramadan, Nyepi, Harbolnas", "Penanda aset yang perlu disiapkan"],
     outputs: ["Kalender 30 hari siap dikerjakan agen lain", "Daftar aset foto/video yang dibutuhkan"],
     example: { title: "Potongan kalender (fiktif)", text: "Sab 17 Okt · IG feed · Fasilitas · Carousel kamar & taman · aset ada · cek SKB libur\nMin 18 Okt · Stories · Interaksi · Poll menu sarapan" },
     limits: ["Tanggal libur dicek ke SKB resmi; yang belum pasti diberi tanda", "Momen keagamaan tidak dijadikan gimmick"],
@@ -109,7 +102,6 @@ export const details: Record<string, AgentDetail> = {
     category: "konten",
     headline: "Rencana kampanye musiman dengan syarat dan target yang jelas.",
     like: "Marketing manager yang merencanakan Lebaran, liburan sekolah, dan akhir tahun dengan disiplin.",
-    tasks: ["Tujuan dan target kampanye", "Penawaran dengan syarat lengkap", "Timeline dan pembagian konten per kanal", "Risiko dan rencana cadangan"],
     outputs: ["Dokumen rencana kampanye 1–2 halaman", "Daftar konten untuk Tara, Raka, dan Sekar"],
     example: { title: "Kampanye liburan sekolah (fiktif)", text: "Hemat 10% untuk menginap 2+ malam, berlaku 20 Des–5 Jan, harga belum termasuk pajak & service (++), booking via WA resmi. Target: inquiry DM +20% dibanding Desember lalu (sumber: log DM)." },
     limits: ["Diskon dan harga baru selalu Anda putuskan; Ayu hanya mengusulkan", "Syarat promo ditulis lengkap, tanpa huruf kecil yang menyesatkan"],
@@ -121,7 +113,6 @@ export const details: Record<string, AgentDetail> = {
     category: "konten",
     headline: "Konten Indonesia ⇄ Inggris yang terasa ditulis penutur asli.",
     like: "Penerjemah bilingual yang menjaga makna, nada, dan klaim tetap sama.",
-    tasks: ["Lokalisasi, bukan terjemahan kata per kata", "Istilah lokal diberi penjelasan singkat", "Klaim dan angka dijaga sama di kedua bahasa"],
     outputs: ["Versi bahasa kedua dari caption, listing, atau balasan", "Catatan istilah yang perlu Anda cek"],
     example: { title: "Lokalisasi (fiktif)", text: "ID: \"Sarapan disajikan di bale tepi sawah.\"\nEN: \"Breakfast is served in the bale, a traditional open pavilion by the rice fields.\"" },
     limits: ["Terjemahan mengikuti level persetujuan konten aslinya", "Tidak menambah klaim yang tidak ada di versi asli"],
@@ -133,7 +124,6 @@ export const details: Record<string, AgentDetail> = {
     category: "konten",
     headline: "Gambar promo dan banner sesuai warna merek Anda.",
     like: "Desainer grafis in-house yang menulis brief visual rapi sebelum gambar dibuat.",
-    tasks: ["Brief visual: tujuan, ukuran, elemen wajib, warna", "Gambar promo dan banner feed/Stories", "Teks di gambar singkat dan benar", "Ukuran sesuai kanal (1:1, 4:5, 9:16)"],
     outputs: ["Gambar 2K siap unggah", "Brief visual yang bisa dipakai desainer Anda"],
     example: { title: "Brief banner (fiktif)", text: "Banner feed 1:1 (1080×1080). Latar krem + hijau merek, foto kopi asli dari klien di tengah. Teks: \"Diskon 20% · Sabtu–Minggu\". Logo klien kanan bawah." },
     limits: ["Tidak meniru wajah orang nyata, logo, atau karakter milik pihak lain", "Visual AI tidak dipakai sebagai bukti kondisi produk atau kamar", "Gambar AI untuk iklan diberi tanda sesuai aturan platform"],
@@ -145,7 +135,6 @@ export const details: Record<string, AgentDetail> = {
     category: "konten",
     headline: "Video AI pendek untuk Reels dan TikTok.",
     like: "Videografer konten pendek yang menyiapkan storyboard sebelum syuting atau generate.",
-    tasks: ["Storyboard per detik", "Klip video AI hingga 8 detik, rasio 9:16", "Hook tiga detik dan teks layar", "Gabungkan dengan naskah dari Raka"],
     outputs: ["Klip video AI siap unggah", "Storyboard untuk rekaman asli"],
     example: { title: "Storyboard 8 detik (fiktif)", text: "0–3 dtk: es batu jatuh ke gelas, close-up (hook)\n3–6 dtk: kopi dituang, kamera pelan naik\n6–8 dtk: teks layar \"Es Kopi Gula Aren · mulai hari ini\"" },
     limits: ["Tidak membuat deepfake atau suara tiruan orang nyata", "Video AI tidak disajikan sebagai rekaman asli produk/tempat"],
@@ -157,7 +146,6 @@ export const details: Record<string, AgentDetail> = {
     category: "data",
     headline: "Laporan bulanan satu halaman, angka apa adanya.",
     like: "Analis marketing yang jujur pada angka dan bisa menjelaskannya dalam 30 detik.",
-    tasks: ["Ringkasan tiga kalimat untuk pemilik usaha", "Metrik dengan sumber dan periode", "Konten terbaik bulan ini", "Rekomendasi bulan depan"],
     outputs: ["Laporan 1 halaman", "Daftar eksperimen untuk bulan berikutnya"],
     example: { title: "Ringkasan laporan (fiktif)", text: "Saves naik dari 1.088 ke 1.284 (+18%) dibanding Agustus. Reach turun 6% karena jumlah post berkurang (12 → 9). Bulan depan: kembali ke 12 post dan uji 2 Reels. Sumber: Instagram Insights, diambil 1 Okt." },
     limits: ["Tidak mengarang atau membulatkan angka agar tampak bagus", "Angka tanpa sumber ditandai, bukan disembunyikan"],
@@ -169,7 +157,6 @@ export const details: Record<string, AgentDetail> = {
     category: "data",
     headline: "Baca file penjualan Anda, beri insight, dan labeli data dalam jumlah besar.",
     like: "Analis data UMKM yang menulis insight singkat dengan angka apa adanya.",
-    tasks: ["Ringkasan file penjualan atau stok (Excel/Sheets/CSV)", "Tren dan tiga insight utama", "Anotasi: sentimen ulasan, kategori produk, label kustom", "Penanda baris data yang perlu dicek"],
     outputs: ["Ringkasan insight + satu saran", "File berlabel siap dipakai"],
     example: { title: "Ringkasan penjualan (fiktif)", text: "Oktober: 310 baris (tanggal, produk, qty, total). Tiga produk teratas menyumbang sebagian besar total. Saran (asumsi): uji promo bundling di produk ke-4. Enam baris tanpa total ditandai perlu dicek." },
     limits: ["Saran ditandai sebagai asumsi, bukan fakta", "Data pribadi pelanggan disamarkan sebelum diproses"],
@@ -181,7 +168,6 @@ export const details: Record<string, AgentDetail> = {
     category: "sales",
     headline: "Draft balasan inquiry yang cepat, ramah, dan teliti soal harga.",
     like: "Staf reservasi/penjualan yang cepat menjawab dan teliti soal syarat.",
-    tasks: ["Draft balasan pertanyaan DM/WhatsApp", "Pertanyaan lanjutan untuk melengkapi pesanan", "Rincian harga dan syarat dari Brain bisnis", "Langkah pemesanan yang jelas"],
     outputs: ["Draft balasan siap Anda kirim", "Ringkasan prospek untuk follow-up"],
     example: { title: "Balasan inquiry (fiktif)", text: "Halo Kak, terima kasih sudah menghubungi Villa Contoh Ubud. Untuk tanggal 12–14 Des, boleh kami tahu jumlah tamunya? Setelah itu kami cek ketersediaan dan kirim rincian harga lengkap." },
     limits: ["Tidak membuat komitmen harga, diskon, atau ketersediaan sendiri", "Pesan dikirim oleh Anda atau tim Anda"],
@@ -193,7 +179,6 @@ export const details: Record<string, AgentDetail> = {
     category: "sales",
     headline: "Pesan untuk pelanggan dan tamu yang terasa personal.",
     like: "Staf front office yang perhatian sebelum tamu datang dan selama menginap.",
-    tasks: ["Pesan sebelum kedatangan atau pengiriman", "Info check-in, jam operasional, arah lokasi", "Follow-up setelah layanan", "Ajakan menulis ulasan dengan sopan"],
     outputs: ["Template pesan yang Anda setujui", "Draft pesan per pelanggan"],
     example: { title: "Pesan pra-kedatangan (fiktif)", text: "Selamat siang, Bu Ani. Kami menantikan kedatangan Ibu di Villa Contoh Ubud besok. Check-in mulai 15.00 WITA. Bila perlu bantuan arah, balas pesan ini atau hubungi nomor resmi kami." },
     limits: ["Pesan otomatis hanya dari template yang sudah Anda setujui", "Promosi hanya ke kontak yang setuju menerima"],
@@ -205,7 +190,6 @@ export const details: Record<string, AgentDetail> = {
     category: "operasional",
     headline: "SOP yang jelas, integrasi yang rapi, dan halaman sederhana untuk bisnis Anda.",
     like: "Supervisor operasional sekaligus teknisi yang menulis langkah jelas untuk staf.",
-    tasks: ["SOP langkah demi langkah dan checklist", "Rencana integrasi: Google Sheets, WhatsApp, toko online", "Landing page dan form sederhana", "Automasi kecil antar aplikasi"],
     outputs: ["Dokumen SOP siap cetak", "Rencana integrasi + konfigurasi", "Halaman/form sederhana"],
     example: { title: "SOP pembersihan kolam (fiktif)", text: "Keselamatan: pakai sarung tangan & kacamata.\n1) Pasang tanda \"Sedang dibersihkan\".\n2) Skim permukaan.\n3) Cek pH dengan test kit (target 7,2–7,6) dan catat di log." },
     limits: ["Tidak meminta atau menyimpan password akun Anda; akses lewat login resmi", "Perubahan pada sistem Anda selalu Anda setujui dulu"],

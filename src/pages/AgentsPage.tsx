@@ -7,6 +7,7 @@ import { AgentVisual } from "@/components/ui/agent-visual";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/ui/reveal";
 import { CATEGORIES, details, type Category } from "@/data/agent-details";
+import { capabilities } from "@/data/capabilities";
 import { agents, agentUrl } from "@/data/agents";
 import { pages } from "@/data/pages";
 import { SIGNUP_URL } from "@/data/site";
@@ -97,6 +98,13 @@ export default function AgentsPage() {
                       {a.name} <span className="font-semibold text-slate-400">· {a.role}</span>
                     </h2>
                     <p className="mt-2 text-sm leading-relaxed text-slate-400">{a.blurb}</p>
+                    {capabilities[a.id] && (
+                      <ul aria-label={`Yang bisa ${a.name} lakukan`} className="mt-3 flex flex-wrap gap-1.5">
+                        {capabilities[a.id].abilities.map((x) => (
+                          <li key={x} className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-xs text-slate-300">{x}</li>
+                        ))}
+                      </ul>
+                    )}
                     <p className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-teal-300">
                       Lihat detail <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
                     </p>
