@@ -5,8 +5,9 @@ import { FAQ } from "@/components/sections/FAQ";
 import { Pricing } from "@/components/sections/Pricing";
 import { Reveal, SectionHeading } from "@/components/ui/reveal";
 import { pages } from "@/data/pages";
-import { MONTHLY_CREDITS } from "@/data/pricing";
+import { aiModes, MONTHLY_CREDITS, PRO_MULTIPLIER } from "@/data/pricing";
 import { usePageMeta } from "@/lib/meta";
+import { cn } from "@/lib/utils";
 
 const meta = pages.find((p) => p.path === "/harga")!;
 
@@ -42,6 +43,35 @@ export default function PricingPage() {
         subtitle="Satu paket berisi semua agen dan 500 kredit setiap bulan. Setiap pekerjaan menampilkan jumlah kreditnya sebelum dijalankan. Tanpa biaya tersembunyi, tanpa perpanjangan otomatis."
       />
       <Pricing heading={false} />
+
+      <section id="mode-ai" className="relative scroll-mt-28 py-16 sm:py-24">
+        <div className="mx-auto max-w-6xl px-4">
+          <SectionHeading
+            eyebrow="Mode AI · segera hadir"
+            title="Pilih kecerdasan sesuai pekerjaannya"
+            subtitle="Standar untuk kerja harian. Pro memakai Claude Fable 5.1, model AI paling canggih yang tersedia untuk publik, bila Anda butuh hasil terbaik. Anda yang memilih; kredit tampil sebelum agen mulai."
+          />
+          <ul className="mt-12 grid gap-5 md:grid-cols-3">
+            {aiModes.map((m, i) => (
+              <li key={m.id}>
+                <Reveal
+                  delay={i * 0.06}
+                  className={cn("flex h-full flex-col rounded-3xl p-7 glass", m.id === "pro" && "border border-teal-300/30 bg-gradient-to-br from-teal-600/15 via-ink-2 to-ink")}
+                >
+                  <p className="text-xs font-semibold tracking-[0.16em] text-slate-500 uppercase">{m.model}</p>
+                  <h3 className="mt-1 font-display text-2xl font-extrabold text-white">Mode {m.name}</h3>
+                  <p className="mt-3 flex-1 text-sm leading-relaxed text-slate-400">{m.when}</p>
+                  <p className="mt-5 font-display text-lg font-bold text-teal-300">{m.price}</p>
+                </Reveal>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-6 text-center text-xs leading-relaxed text-slate-500">
+            Contoh: caption Tara 8 kredit di mode Standar, {8 * PRO_MULTIPLIER} kredit di mode Pro. Mode Pro berlaku untuk agen teks; gambar dan video memakai tarifnya sendiri.
+            Mode tidak mengubah persetujuan: semua hasil tetap draft sampai Anda setujui.
+          </p>
+        </div>
+      </section>
 
       <section className="relative py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-4">
