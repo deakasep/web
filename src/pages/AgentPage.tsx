@@ -1,4 +1,4 @@
-import { ArrowRight, Check, Coins, FileText, ShieldAlert, Sparkles, UserCheck } from "lucide-react";
+import { ArrowRight, Check, Coins, FileText, MessageSquareText, ShieldAlert, Sparkles, UserCheck } from "lucide-react";
 import { motion } from "motion/react";
 import { PageHero } from "@/components/page/PageHero";
 import { CTA } from "@/components/sections/CTA";
@@ -10,6 +10,7 @@ import { agents, agentUrl, avatar, type Agent } from "@/data/agents";
 import { BRAND } from "@/data/pages";
 import { MONTHLY_CREDITS } from "@/data/pricing";
 import { SIGNUP_URL } from "@/data/site";
+import { useCases } from "@/data/use-cases";
 import { usePageMeta } from "@/lib/meta";
 import NotFound from "@/pages/NotFound";
 
@@ -27,6 +28,7 @@ export default function AgentPage({ slug }: { slug: string }) {
   usePageMeta(title, d ? `${d.headline} ${a!.blurb}` : "Agen yang Anda cari tidak ada.", a ? agentUrl(a) : "/agen");
   if (!a || !d) return <NotFound />;
 
+  const cases = useCases[a.id] ?? [];
   const category = CATEGORIES.find((c) => c.id === d.category)?.label ?? "";
   const others = agents.filter((x) => x.id !== a.id && details[x.id]?.category === d.category).slice(0, 4);
   const more = others.length ? others : agents.filter((x) => x.id !== a.id).slice(0, 4);
@@ -98,7 +100,44 @@ export default function AgentPage({ slug }: { slug: string }) {
         </Reveal>
       </section>
 
-      <section id="contoh" className="mx-auto max-w-6xl scroll-mt-28 px-4 py-16">
+      {cases.length > 0 && (
+        <section id="use-case" className="mx-auto max-w-6xl scroll-mt-28 px-4 py-16">
+          <Reveal className="flex flex-wrap items-end justify-between gap-4">
+            <div className="max-w-2xl">
+              <h2 className="font-display text-3xl font-extrabold tracking-tight text-white">Use case siap pakai</h2>
+              <p className="mt-3 text-slate-400">
+                {a.active
+                  ? `Pilih tugas, sesuaikan detailnya, lalu ${a.name} menyiapkan draft untuk Anda setujui. Kredit tampil sebelum ${a.name} mulai bekerja.`
+                  : `Use case ini tersedia begitu ${a.name} dibuka. Kredit tampil sebelum ${a.name} mulai bekerja.`}
+              </p>
+            </div>
+            {!a.active && (
+              <span className="rounded-full bg-amber-400/15 px-3 py-1 text-xs font-semibold text-amber-200">Segera hadir</span>
+            )}
+          </Reveal>
+          <ul className="mt-8 grid gap-4 sm:grid-cols-2">
+            {cases.map((u, i) => (
+              <li key={u.title}>
+                <Reveal delay={i * 0.05} className="flex h-full flex-col rounded-3xl p-6 glass">
+                  <div className="flex items-start justify-between gap-4">
+                    <h3 className="font-display text-lg font-bold text-white">{u.title}</h3>
+                    <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-teal-400/10 px-2.5 py-1 text-xs font-semibold text-teal-300">
+                      <Coins className="size-3.5" /> {u.credits} kredit
+                    </span>
+                  </div>
+                  <p className="mt-3 flex-1 rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm leading-relaxed text-slate-300">
+                    <MessageSquareText className="mr-2 inline size-4 align-[-3px] text-slate-500" aria-hidden="true" />
+                    “{u.ask}”
+                  </p>
+                </Reveal>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-5 text-xs text-slate-500">Contoh perintah. Hasilnya selalu draft: tidak ada yang tayang atau terkirim sebelum Anda klik Setujui.</p>
+        </section>
+      )}
+
+      <section id="contoh"className="mx-auto max-w-6xl scroll-mt-28 px-4 py-16">
         <Reveal className="grid gap-8 rounded-[2rem] border border-teal-300/20 bg-gradient-to-br from-teal-600/15 via-ink-2 to-ink p-7 sm:p-10 lg:grid-cols-[1fr_1.4fr] lg:items-center">
           <div>
             <span className="inline-flex rounded-full bg-amber-400/15 px-3 py-1 text-xs font-semibold text-amber-200">Contoh SIMULASI · usaha fiktif</span>
