@@ -32,6 +32,15 @@ export const topups = [
 export const TOPUP_VALID_MONTHS = 12;
 export const topupNote = `Kredit top up berlaku ${TOPUP_VALID_MONTHS} bulan sejak dibayar. Kredit bulanan dipakai dulu, lalu top up yang paling cepat kedaluwarsa; tanggal hangus terdekat terlihat di dashboard.`;
 
+/** Mode AI (pricing.md v1.2.0 §3a). Aktif setelah provider AI nyata tersambung; sampai itu web menandainya segera hadir. */
+export const PRO_MULTIPLIER = 4;
+
+export const aiModes = [
+  { id: "ringan", name: "Ringan", model: "Claude Haiku", when: "Dipilih sistem untuk tugas ringan: balasan chat singkat, format ulang, ringkasan pendek. Tidak dipakai untuk pekerjaan berisiko.", price: "Tarif biasa" },
+  { id: "standar", name: "Standar", model: "Claude Sonnet", when: "Default untuk semua pekerjaan agen: caption, naskah, listing, kalender, laporan, dan lainnya.", price: "Tarif biasa" },
+  { id: "pro", name: "Pro", model: "Claude Fable 5.1", when: "Anda pilih sendiri sebelum mengirim permintaan, untuk pekerjaan teks yang butuh kualitas tertinggi.", price: `${PRO_MULTIPLIER}× tarif` },
+] as const;
+
 export type CreditCost = { job: string; agent: string; credits: string; soon?: boolean };
 
 export const creditCosts: CreditCost[] = [
