@@ -15,6 +15,12 @@ export const releases: Release[] = [
     items: [
       {
         tag: "baru",
+        title: "Garansi uang kembali 14 hari",
+        body: "Paket berlangganan pertama bisa dikembalikan penuh bila Anda memintanya dalam 14 hari sejak bayar, tanpa perlu alasan. Aturan lengkap dan batas pemakaian yang wajar kini punya halaman sendiri.",
+        href: "/kebijakan-refund",
+      },
+      {
+        tag: "baru",
         title: "Coba gratis: 50 kredit percobaan",
         body: "Akun usaha baru mendapat 50 kredit gratis yang berlaku 3 hari sejak email terverifikasi, sekali per usaha. Kredit percobaan dipakai lebih dulu dan tidak ada tagihan otomatis setelahnya.",
         href: "/harga#faq",

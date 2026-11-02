@@ -1,4 +1,4 @@
-import { MONTHLY_CREDITS, plans, rupiah, topups } from "@/data/pricing";
+import { MONTHLY_CREDITS, plans, REFUND_DAYS, rupiah, topups } from "@/data/pricing";
 import { SITE } from "@/data/site";
 import { Bullets, LegalLayout, Mail, type LegalSection } from "@/pages/legal/LegalLayout";
 
@@ -42,7 +42,12 @@ const sections: LegalSection[] = [
           ]}
         />
         <p>
-          <b className="text-white">Pengembalian dana:</b> [kebijakan pengembalian dana paket dan top up diisi pengelola sebelum layanan berbayar dibuka].
+          <b className="text-white">Pengembalian dana:</b> pembayaran paket berlangganan pertama dapat dikembalikan penuh bila diminta dalam {REFUND_DAYS} hari sejak
+          pembayaran; top up kredit dan kredit percobaan tidak dapat dikembalikan. Rincian di{" "}
+          <a href="/kebijakan-refund" className="font-semibold text-teal-300 hover:text-teal-200">
+            Kebijakan Refund
+          </a>
+          .
         </p>
       </>
     ),
@@ -109,6 +114,13 @@ const sections: LegalSection[] = [
           ]}
         />
         <p>Agen menolak atau meneruskan ke Anda permintaan yang melanggar aturan ini.</p>
+        <p>
+          Batas pemakaian akun, kredit, dan garansi diatur di{" "}
+          <a href="/penggunaan-wajar" className="font-semibold text-teal-300 hover:text-teal-200">
+            Penggunaan Wajar
+          </a>
+          .
+        </p>
       </>
     ),
   },

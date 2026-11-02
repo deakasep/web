@@ -64,6 +64,8 @@ export const footer: { title: string; links: NavLink[] }[] = [
       { label: "Kebijakan privasi", href: "/kebijakan-privasi" },
       { label: "Syarat layanan", href: "/syarat-layanan" },
       { label: "Penghapusan data", href: "/penghapusan-data" },
+      { label: "Kebijakan refund", href: "/kebijakan-refund" },
+      { label: "Penggunaan wajar", href: "/penggunaan-wajar" },
     ],
   },
 ];

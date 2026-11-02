@@ -33,6 +33,9 @@ export const TOPUP_VALID_MONTHS = 12;
 // Kredit percobaan (clau-market pricing.md v1.3.0 §2a): sekali per akun usaha.
 export const TRIAL_CREDITS = 50;
 export const TRIAL_DAYS = 3;
+/** Garansi uang kembali paket pertama (clau-market pricing.md v1.4.0 §2b). */
+export const REFUND_DAYS = 14;
+export const REFUND_PROCESS = "3–5 hari kerja";
 export const topupNote = `Kredit top up berlaku ${TOPUP_VALID_MONTHS} bulan sejak dibayar. Urutan pemakaian: kredit percobaan, kredit bulanan, lalu top up yang paling cepat kedaluwarsa; tanggal hangus terdekat terlihat di dashboard.`;
 
 /** Mode AI (pricing.md v1.2.0 §3a). Aktif setelah provider AI nyata tersambung; sampai itu web menandainya segera hadir. */
@@ -72,6 +75,7 @@ export const faq = [
   { q: "Bisa coba dulu sebelum bayar?", a: `Bisa. Akun usaha baru mendapat ${TRIAL_CREDITS} kredit percobaan gratis yang berlaku ${TRIAL_DAYS} hari sejak email Anda terverifikasi, sekali per usaha. Tanpa kartu, tanpa tagihan otomatis: setelah ${TRIAL_DAYS} hari sisa kredit percobaan hangus, dan Anda bebas memilih paket atau tidak.` },
   { q: "Apa itu karyawan AI?", a: "Agen AI yang masing-masing punya satu keahlian, misalnya menulis caption, naskah Reels, listing OTA, atau balasan review. Agen membaca Brain bisnis Anda, menyusun draft, mengecek setiap klaim ke fakta yang Anda konfirmasi, lalu menyerahkan hasilnya untuk Anda setujui. Seperti staf ahli, tapi tidak ada yang tayang tanpa persetujuan Anda." },
   { q: "Apa bedanya dengan chatbot AI biasa?", a: "Chatbot umum tidak tahu harga, produk, dan aturan merek Anda, sehingga hasilnya perlu dicek ulang dari nol. Agen CLAU bekerja dari Brain bisnis yang sama, mengikuti alur kerja dan checklist kualitas yang tetap, menandai isi berisiko seperti harga atau review negatif, dan mencatat siapa menyetujui apa." },
+  { q: "Ada garansi uang kembali?", a: `Ada. Pembayaran paket berlangganan pertama bisa dikembalikan penuh bila Anda memintanya dalam ${REFUND_DAYS} hari sejak bayar, tanpa perlu alasan. Top up kredit dan kredit percobaan tidak termasuk. Dana kembali ke metode bayar asal dalam ${REFUND_PROCESS}. Rinciannya di halaman Kebijakan Refund.` },
   { q: "Apa yang terjadi kalau kredit habis?", a: "Anda cukup menerima pemberitahuan di dashboard: saat kredit menipis dan saat habis. Agent berhenti sebelum memanggil AI, jadi tidak ada tagihan tambahan, dan draft yang sudah jadi tetap tersimpan. Top up dari dashboard dan agent langsung bekerja lagi." },
   { q: "Apakah AI memposting sendiri?", a: "Tidak. Konten hanya terposting setelah Anda (atau approver yang Anda tunjuk) menekan Setujui untuk versi itu." },
   { q: "Perlu API key atau akun AI sendiri?", a: "Tidak. Anda tidak perlu mendaftar ke OpenAI, Google, atau penyedia AI lain. Semua pemakaian AI diatur otomatis oleh sistem CLAU dan sudah termasuk dalam kredit; Anda cukup membayar paket dan, bila perlu, top up." },
