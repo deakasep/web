@@ -37,6 +37,12 @@ export const pages: PageMeta[] = [
     priority: 0.7,
   },
   {
+    path: "/yang-baru",
+    title: "Yang baru · CLAU AI",
+    description: "Catatan fitur baru dan perbaikan CLAU AI: agen, kredit, Brain bisnis, keamanan, dan fitur yang segera hadir.",
+    priority: 0.6,
+  },
+  {
     path: "/kebijakan-privasi",
     title: "Kebijakan Privasi · CLAU AI",
     description: "Data apa yang kami kumpulkan, untuk apa, dengan siapa dibagikan, berapa lama disimpan, dan hak Anda sesuai UU Pelindungan Data Pribadi.",

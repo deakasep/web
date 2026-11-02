@@ -12,6 +12,7 @@ const AgentPage = lazy(() => import("@/pages/AgentPage"));
 const PricingPage = lazy(() => import("@/pages/PricingPage"));
 const BrainPage = lazy(() => import("@/pages/BrainPage"));
 const IntegrationsPage = lazy(() => import("@/pages/IntegrationsPage"));
+const ChangelogPage = lazy(() => import("@/pages/ChangelogPage"));
 const PrivacyPage = lazy(() => import("@/pages/legal/PrivacyPage"));
 const TermsPage = lazy(() => import("@/pages/legal/TermsPage"));
 const DataDeletionPage = lazy(() => import("@/pages/legal/DataDeletionPage"));
@@ -22,6 +23,7 @@ const STATIC: Record<string, React.ComponentType> = {
   "/harga": PricingPage,
   "/brain-ai": BrainPage,
   "/integrasi": IntegrationsPage,
+  "/yang-baru": ChangelogPage,
   "/kebijakan-privasi": PrivacyPage,
   "/syarat-layanan": TermsPage,
   "/penghapusan-data": DataDeletionPage,
