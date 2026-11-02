@@ -15,6 +15,12 @@ export const releases: Release[] = [
     items: [
       {
         tag: "baru",
+        title: "Coba gratis: 50 kredit percobaan",
+        body: "Akun usaha baru mendapat 50 kredit gratis yang berlaku 3 hari sejak email terverifikasi, sekali per usaha. Kredit percobaan dipakai lebih dulu dan tidak ada tagihan otomatis setelahnya.",
+        href: "/harga#faq",
+      },
+      {
+        tag: "baru",
         title: "Tugas tiap agen dijelaskan seperti staf ahli",
         body: "Setiap halaman agen kini memuat 3 kemampuan utama, 6 fitur, alur kerja langkah demi langkah, dan checklist kualitas yang dicek sebelum draft sampai ke Anda.",
         href: "/agen",
