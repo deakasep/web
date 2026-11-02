@@ -66,6 +66,8 @@ export const creditCosts: CreditCost[] = [
 ];
 
 export const faq = [
+  { q: "Apa itu karyawan AI?", a: "Agen AI yang masing-masing punya satu keahlian, misalnya menulis caption, naskah Reels, listing OTA, atau balasan review. Agen membaca Brain bisnis Anda, menyusun draft, mengecek setiap klaim ke fakta yang Anda konfirmasi, lalu menyerahkan hasilnya untuk Anda setujui. Seperti staf ahli, tapi tidak ada yang tayang tanpa persetujuan Anda." },
+  { q: "Apa bedanya dengan chatbot AI biasa?", a: "Chatbot umum tidak tahu harga, produk, dan aturan merek Anda, sehingga hasilnya perlu dicek ulang dari nol. Agen CLAU bekerja dari Brain bisnis yang sama, mengikuti alur kerja dan checklist kualitas yang tetap, menandai isi berisiko seperti harga atau review negatif, dan mencatat siapa menyetujui apa." },
   { q: "Apa yang terjadi kalau kredit habis?", a: "Anda cukup menerima pemberitahuan di dashboard: saat kredit menipis dan saat habis. Agent berhenti sebelum memanggil AI, jadi tidak ada tagihan tambahan, dan draft yang sudah jadi tetap tersimpan. Top up dari dashboard dan agent langsung bekerja lagi." },
   { q: "Apakah AI memposting sendiri?", a: "Tidak. Konten hanya terposting setelah Anda (atau approver yang Anda tunjuk) menekan Setujui untuk versi itu." },
   { q: "Perlu API key atau akun AI sendiri?", a: "Tidak. Anda tidak perlu mendaftar ke OpenAI, Google, atau penyedia AI lain. Semua pemakaian AI diatur otomatis oleh sistem CLAU dan sudah termasuk dalam kredit; Anda cukup membayar paket dan, bila perlu, top up." },

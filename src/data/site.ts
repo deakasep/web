@@ -46,6 +46,7 @@ export const footer: { title: string; links: NavLink[] }[] = [
       { label: "Brain AI", href: "/brain-ai" },
       { label: "Integrasi", href: "/integrasi" },
       { label: "Harga", href: "/harga" },
+      { label: "Yang baru", href: "/yang-baru" },
     ],
   },
   {
