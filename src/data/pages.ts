@@ -60,6 +60,18 @@ export const pages: PageMeta[] = [
     description: "Cara meminta penghapusan akun dan data Anda, termasuk data dari akun Instagram, Facebook, dan TikTok yang terhubung.",
     priority: 0.3,
   },
+  {
+    path: "/kebijakan-refund",
+    title: "Kebijakan Refund · CLAU AI",
+    description: "Garansi uang kembali 14 hari untuk paket berlangganan pertama, apa yang tidak termasuk, dan cara memintanya.",
+    priority: 0.3,
+  },
+  {
+    path: "/penggunaan-wajar",
+    title: "Penggunaan Wajar · CLAU AI",
+    description: "Batas pemakaian yang wajar untuk agen AI, kredit, akun, dan garansi CLAU AI, serta apa yang terjadi bila dilanggar.",
+    priority: 0.3,
+  },
 ];
 
 export const NOT_FOUND: PageMeta = { path: "/404", title: "Halaman tidak ditemukan · CLAU AI", description: "Halaman yang Anda cari tidak ada.", priority: 0 };

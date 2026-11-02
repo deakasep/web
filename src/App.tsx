@@ -16,6 +16,8 @@ const ChangelogPage = lazy(() => import("@/pages/ChangelogPage"));
 const PrivacyPage = lazy(() => import("@/pages/legal/PrivacyPage"));
 const TermsPage = lazy(() => import("@/pages/legal/TermsPage"));
 const DataDeletionPage = lazy(() => import("@/pages/legal/DataDeletionPage"));
+const RefundPage = lazy(() => import("@/pages/legal/RefundPage"));
+const FairUsePage = lazy(() => import("@/pages/legal/FairUsePage"));
 
 const STATIC: Record<string, React.ComponentType> = {
   "/": Home,
@@ -27,6 +29,8 @@ const STATIC: Record<string, React.ComponentType> = {
   "/kebijakan-privasi": PrivacyPage,
   "/syarat-layanan": TermsPage,
   "/penghapusan-data": DataDeletionPage,
+  "/kebijakan-refund": RefundPage,
+  "/penggunaan-wajar": FairUsePage,
 };
 
 function Routes() {
