@@ -30,7 +30,10 @@ export const topups = [
 
 /** Masa berlaku kredit top up (pricing.md v1.1.0 §2; sama dengan platform clau-agent 0.14.0). */
 export const TOPUP_VALID_MONTHS = 12;
-export const topupNote = `Kredit top up berlaku ${TOPUP_VALID_MONTHS} bulan sejak dibayar. Kredit bulanan dipakai dulu, lalu top up yang paling cepat kedaluwarsa; tanggal hangus terdekat terlihat di dashboard.`;
+// Kredit percobaan (clau-market pricing.md v1.3.0 §2a): sekali per akun usaha.
+export const TRIAL_CREDITS = 50;
+export const TRIAL_DAYS = 3;
+export const topupNote = `Kredit top up berlaku ${TOPUP_VALID_MONTHS} bulan sejak dibayar. Urutan pemakaian: kredit percobaan, kredit bulanan, lalu top up yang paling cepat kedaluwarsa; tanggal hangus terdekat terlihat di dashboard.`;
 
 /** Mode AI (pricing.md v1.2.0 §3a). Aktif setelah provider AI nyata tersambung; sampai itu web menandainya segera hadir. */
 export const PRO_MULTIPLIER = 4;
@@ -66,6 +69,7 @@ export const creditCosts: CreditCost[] = [
 ];
 
 export const faq = [
+  { q: "Bisa coba dulu sebelum bayar?", a: `Bisa. Akun usaha baru mendapat ${TRIAL_CREDITS} kredit percobaan gratis yang berlaku ${TRIAL_DAYS} hari sejak email Anda terverifikasi, sekali per usaha. Tanpa kartu, tanpa tagihan otomatis: setelah ${TRIAL_DAYS} hari sisa kredit percobaan hangus, dan Anda bebas memilih paket atau tidak.` },
   { q: "Apa itu karyawan AI?", a: "Agen AI yang masing-masing punya satu keahlian, misalnya menulis caption, naskah Reels, listing OTA, atau balasan review. Agen membaca Brain bisnis Anda, menyusun draft, mengecek setiap klaim ke fakta yang Anda konfirmasi, lalu menyerahkan hasilnya untuk Anda setujui. Seperti staf ahli, tapi tidak ada yang tayang tanpa persetujuan Anda." },
   { q: "Apa bedanya dengan chatbot AI biasa?", a: "Chatbot umum tidak tahu harga, produk, dan aturan merek Anda, sehingga hasilnya perlu dicek ulang dari nol. Agen CLAU bekerja dari Brain bisnis yang sama, mengikuti alur kerja dan checklist kualitas yang tetap, menandai isi berisiko seperti harga atau review negatif, dan mencatat siapa menyetujui apa." },
   { q: "Apa yang terjadi kalau kredit habis?", a: "Anda cukup menerima pemberitahuan di dashboard: saat kredit menipis dan saat habis. Agent berhenti sebelum memanggil AI, jadi tidak ada tagihan tambahan, dan draft yang sudah jadi tetap tersimpan. Top up dari dashboard dan agent langsung bekerja lagi." },
